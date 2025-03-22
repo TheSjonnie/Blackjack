@@ -9,4 +9,7 @@ class BlackjackPlays extends Model
 {
     /** @use HasFactory<\Database\Factories\BlackjackPlaysFactory> */
     use HasFactory;
+    public function User() {
+        return $this->belongsTo(User::class);
+    }
 }
