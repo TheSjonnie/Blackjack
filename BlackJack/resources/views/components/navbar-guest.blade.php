@@ -8,13 +8,20 @@
                 <a href="" class="text-2xl text-yellow-500">Blackjack</a>
             </div>
             <div class="flex items-center">
-                <a class="m-4 text-yellow-500" href="#">rules</a>
-                <a class="m-4 rounded-xl py-2 px-5 bg-yellow-500 text-xl" href="#">play now</a>
-                <a class="m-4" href="#">LeaderBoard</a>
+                <a class="hidden sm:block md:m-4 m-2 text-yellow-500" href="#">rules</a>
+                <a class="md:m-4 m-2 rounded-xl py-2 max-[400px]:py-1 px-5 max-[400px]:px-1 bg-yellow-500 text-xl" href="#">play now</a>
+                <a class="hidden sm:block md:m-4 m-2 text-yellow-500" href="#">LeaderBoard</a>
             </div>
             <div class="flex items-center gap-3.5">
-                <a class="" href="#">sign up</a>
-                <a class="" href="#">login</a>
+                <a class="hidden sm:block text-yellow-500" href="#">sign up</a>
+                <a class="hidden sm:block text-yellow-500" href="#">login</a>
             </div>
+            <button data-collapse-toggle="navbar-default" type="button" class="sm:hidden" aria-controls="navbar-default" aria-expanded="false">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
         </div>
     </nav>
+    
+    
