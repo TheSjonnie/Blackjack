@@ -17,7 +17,9 @@
         <header>
             <x-navbar-guest />
         </header>
-        <main></main>
+        <main>
+            {{$slot}}
+        </main>
         <footer></footer>
     </body>
 </html>
