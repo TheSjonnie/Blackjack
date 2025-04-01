@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 function setEventlistenersToChips(){
     const chipsContainer = document.getElementById("ChipsBet");
-    console.log("chipsContainer ==> ", chipsContainer);
     chipsContainer.addEventListener("click", function (event) {
         const clickedChip = event.target; // Getting the right Chip
         if (clickedChip.tagName === "IMG") {
@@ -14,12 +13,15 @@ function setEventlistenersToChips(){
     });
 }
 function handleChipClick(value,imgPath) {
+    const Betelement = document.getElementById('Bet');
+    let number = parseInt( Betelement.innerHTML);
+    number += parseInt(value);
+    Betelement.innerHTML = number
     const ParentElement = document.getElementById('userChipBetContainer');
-    console.log("ParentElement ==> ", ParentElement);
-    
-    const ClassName = `ChipImgSize absolute top-${Math.floor(Math.random() * 30) / 10} left-${Math.floor(Math.random() * 30) / 10}  transform rotate-${Math.floor(Math.random() * 80) / 10}`
+    const ClassNameFirst = `ChipImgSize`;
+    const ClassnNameOther = `ChipImgSize absolute top-${Math.floor(Math.random() * 40) / 10} left-${Math.floor(Math.random() * 40) / 10}  transform rotate-${Math.floor(Math.random() * 80) / 10}`;
+    const ClassName = (ParentElement.childElementCount == 0) ? ClassNameFirst : ClassnNameOther;
     const alt = `Value ${value} Chip`
-    const src = `{{asset('image/Chips/${value}.png')}}`
     CreateElement('img',ClassName, alt, imgPath, ParentElement)
 }
 function CreateElement(Element,ClassName,Alt,Src,ParentElement){
