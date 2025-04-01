@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::middleware('auth')->group(function () {
-    Route::get('/Blackjackpage', [BlackjackGameController::class,'index']);
 });
+Route::get('/Blackjackpage', [BlackjackGameController::class,'index']);
 
 require __DIR__.'/auth.php';
