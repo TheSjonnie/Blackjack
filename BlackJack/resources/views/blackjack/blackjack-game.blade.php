@@ -29,10 +29,10 @@
                 </div>
             </div>
             <div class="container flex gap-6 justify-center">
-                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden">Split</button>
-                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden">Dubble</button>
-                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden">Hit</button>
-                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden">Stand</button>
+                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden" id="ActionBtnSplit">Split</button>
+                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden" id="ActionBtnDubble">Dubble</button>
+                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden" id="ActionBtnHit">Hit</button>
+                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden" id="ActionBtnStand">Stand</button>
             </div>
             <div class="container flex justify-center flex-col">
                 <div class="container flex justify-center">

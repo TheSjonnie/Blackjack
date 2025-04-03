@@ -27,3 +27,13 @@ function handleChipClick(value,imgPath) {
     const alt = `Value ${value} Chip`
     CreateElement('img',ClassName, alt, imgPath, ParentElement)
 }
+function SetHtmlElementContent(HtmlElementId, content){
+    document.getElementById(HtmlElementId).innerHTML = content;
+}
+function ClassListAddHidden(HtmlElementId){
+    document.getElementById(HtmlElementId).classList.add('hidden')
+}
+function ClassListAddshow(HtmlElementId){
+    document.getElementById(HtmlElementId).classList.remove('hidden')
+}
+export {SetHtmlElementContent, ClassListAddHidden, ClassListAddshow};
