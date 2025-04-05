@@ -22,5 +22,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
 });
 Route::get('/Blackjackpage', [BlackjackGameController::class,'index']);
+Route::post('/Blackjackpage', [BlackjackGameController::class,'indexpost']);
 
 require __DIR__.'/auth.php';

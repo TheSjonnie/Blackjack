@@ -1,4 +1,5 @@
 import CardsImageClasses from './data/CardsImageClasses.json';
+import FetchUrl from './data/FetchUrl.json';
 import { SetHtmlElementContent, ClassListAddHidden, ClassListAddshow } from './BlackjackPageUI';
 let deck = [];
 let UserCardsValue = {}
@@ -46,23 +47,33 @@ function ActionBtnSelection() {
     let ActionBtnDubbleShow = false
     let ActionBtnSplitShow = false;
     console.log(Dealercardvalue, UserCardsValue);
-    if (UserCardsValue.TotalValue == 21) {
-        BlackjackWin();
-    } else if (UserCardsValue.ValueCard1 == UserCardsValue.ValueCard2) {
-        ActionBtnHitShow = true;
-        ActionBtnStandShow = true;
-        ActionBtnSplitShow = true;
-        if (UserCardsValue.TotalValue == 9 || UserCardsValue.TotalValue == 10 || UserCardsValue.TotalValue == 11) {
-            ActionBtnDubbleShow = true
+    if (!UserCardsValue.ValueCard3 ){
+        console.log('hoi')
+        if (UserCardsValue.ValueCard1 === UserCardsValue.ValueCard2) {
+            ActionBtnHitShow = true;
+            ActionBtnStandShow = true;
+            ActionBtnSplitShow = true;
+            console.log('hoi')
+            if (UserCardsValue.TotalValue === 9 || UserCardsValue.TotalValue === 10 || UserCardsValue.TotalValue === 11) {
+                ActionBtnDubbleShow = true;
+                console.log('hoi')
+            }
+        } else if (UserCardsValue.TotalValue === 9 || UserCardsValue.TotalValue === 10 || UserCardsValue.TotalValue === 11) {
+            ActionBtnHitShow = true;
+            ActionBtnStandShow = true;
+            ActionBtnDubbleShow = true;
+            console.log('hoi')
+        } else {
+            ActionBtnHitShow = true;
+            ActionBtnStandShow = true;  
+            console.log('hoi')
         }
-    } else if (UserCardsValue.TotalValue == 9 || UserCardsValue.TotalValue == 10 || UserCardsValue.TotalValue == 11) {
-        ActionBtnHitShow = true;
-        ActionBtnStandShow = true;
-        ActionBtnDubbleShow = true;
     } else {
         ActionBtnHitShow = true;
         ActionBtnStandShow = true;
+        console.log('hoi')
     }
+    console.log(ActionBtnDubbleShow,ActionBtnHitShow,ActionBtnSplitShow,ActionBtnStandShow)
     if (ActionBtnHitShow) {
         ClassListAddshow('ActionBtnHit')
         addEventListenerToActionBtn('ActionBtnHit')
@@ -118,6 +129,21 @@ async function ActionHit() {
         [`ValueCard${NextCardsNumber}`]: CardValue,  // Ensures correct value type
     };
     console.log(UserCardsValue);
+    SetHtmlElementContent('UserCardsValue', UserCardsValue.TotalValue);
+    if (TotalValueCheck(UserCardsValue.TotalValue)) {
+        ActionBtnSelection();
+    }
+}
+function TotalValueCheck(TotalValue){
+    if(TotalValue > 21) {
+        FinalBust()
+        return false;
+    } else if(TotalValue == 21){
+        FinalWin()
+        return false;
+    } else{
+        return true;
+    }
 }
 function ActionStand(){
 
@@ -127,6 +153,10 @@ function ActionDubble() {
 }
 function ActionSplit(){
 
+}
+function FinalBust(){
+    SetHtmlElementContent('GameResults', 'You Bust');
+    
 }
 async function TimeOut() {
     await new Promise((resolve) => setTimeout(resolve, 8));
@@ -157,14 +187,11 @@ function createdeck() {
 
 async function PickCard(parentContainerName) {
     let card = deck[Math.floor(Math.random() * 52)];
-    console.log("card ==> ", card);
     const ParentElement = document.getElementById(parentContainerName);
     let left = CardsImageClasses[(ParentElement.childElementCount)]['left'];
     let rotate = CardsImageClasses[(ParentElement.childElementCount)]['rotate'];
-
-    const ClassNameFirst = `CardsImgSize rotate-345`;
-    const ClassnNameOther = `CardsImgSize absolute left-${left} rotate-${rotate}`;
-    const ClassName = (ParentElement.childElementCount == 0) ? ClassNameFirst : ClassnNameOther;
+    let position = CardsImageClasses[(ParentElement.childElementCount)]['position'];
+    const ClassName = `CardsImgSize ${position} left-${left} rotate-${rotate}`;
     const alt = `${card} Image`
     let Blankcard = CreateElement('img', ClassName, alt, "http://127.0.0.1:8000/image/DeckCards/back_light.png", ParentElement)
     await TimeOut();

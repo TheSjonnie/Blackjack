@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container flex justify-center">
         <div class="container w-3/4">
-            <div class="container flex justify-center mb-9 flex-col gap-8">=
+            <div class="container flex justify-center mb-9 flex-col gap-8">
                 <div class="container flex justify-center">
                     <div class="container flex relative w-fit" id="DealerCardsImageContainer">
                         <!-- <img src="{{asset('image/DeckCards/clubs_5.png')}}" alt="club 5 img" srcset="" class="CardsImgSize rotate-345">
@@ -18,6 +18,9 @@
             </div>
             <div class="container flex justify-center my-6" id="StartBtnContainer">
                 <button id="StartGame" class="bg-yellow-500 rounded-xl px-7 py-2 cursor-pointer text-white">Start Game</button>
+            </div>
+            <div class="container text-center">
+                <p class="text-7xl text-white" id="GameResults"></p>
             </div>
             <div class="container flex justify-center my-9 flex-col gap-8">
                 <div class="container flex justify-center">

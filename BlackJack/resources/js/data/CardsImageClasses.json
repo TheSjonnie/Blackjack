@@ -1,39 +1,53 @@
 {
     "0": {
-        "left": 3,
-        "rotate": 355
+      "left": 0,
+      "rotate": 345,
+      "position": "relative"
     },
     "1": {
-        "left": 6,
-        "rotate": 5
+      "left": 3,
+      "rotate": 355,
+      "position": "absolute"
     },
     "2": {
-        "left": 9,
-        "rotate": 15
+      "left": 6,
+      "rotate": 5,
+      "position": "absolute"
     },
     "3": {
-        "left": 12,
-        "rotate": 25
+      "left": 9,
+      "rotate": 15,
+      "position": "absolute"
     },
     "4": {
-        "left": 15,
-        "rotate": 35
+      "left": 12,
+      "rotate": 25,
+      "position": "absolute"
     },
     "5": {
-        "left": 18,
-        "rotate": 45
+      "left": 15,
+      "rotate": 35,
+      "position": "absolute"
     },
     "6": {
-        "left": 21,
-        "rotate": 55
+      "left": 18,
+      "rotate": 45,
+      "position": "absolute"
     },
     "7": {
-        "left": 24,
-        "rotate": 65
+      "left": 21,
+      "rotate": 55,
+      "position": "absolute"
     },
     "8": {
-        "left": 27,
-        "rotate": 75
+      "left": 24,
+      "rotate": 65,
+      "position": "absolute"
+    },
+    "9": {
+      "left": 27,
+      "rotate": 75,
+      "position": "absolute"
     }
-
-}
+  }
+  
