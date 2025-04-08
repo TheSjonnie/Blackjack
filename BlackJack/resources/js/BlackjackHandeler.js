@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 })
 async function StartGame() {
-    ClassListAddHidden('ChipsbetContainer'); // hide Chips
-    ClassListAddHidden('StartBtnContainer'); // hide Start btn
+    ClassListAddHidden('ChipsbetContainer');
+    ClassListAddHidden('StartBtnContainer');
     let Usercard1 = await PickCard('userCardsImageContainer');
     await TimeOut();
     let Dealercard1 = await PickCard('DealerCardsImageContainer');
@@ -112,6 +112,17 @@ function addEventListenerToActionBtn(HtmlElementId) {
 
     })
 }
+function TotalValueCheck(TotalValue){
+    if(TotalValue > 21) {
+        FinalBust()
+        return false;
+    } else if(TotalValue == 21){
+        FinalWin()
+        return false;
+    } else{
+        return true;
+    }
+}
 async function ActionHit() {
     console.log(UserCardsValue);
     (!document.getElementById('ActionBtnHit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnHit') : '';
@@ -125,8 +136,8 @@ async function ActionHit() {
     UserCardsValue = {
         ...UserCardsValue,
         TotalValue: NewTotalValue,
-        AmouthCards: NextCardsNumber,  // Now correctly increments
-        [`ValueCard${NextCardsNumber}`]: CardValue,  // Ensures correct value type
+        AmouthCards: NextCardsNumber,
+        [`ValueCard${NextCardsNumber}`]: CardValue,
     };
     console.log(UserCardsValue);
     SetHtmlElementContent('UserCardsValue', UserCardsValue.TotalValue);
@@ -134,19 +145,27 @@ async function ActionHit() {
         ActionBtnSelection();
     }
 }
-function TotalValueCheck(TotalValue){
-    if(TotalValue > 21) {
-        FinalBust()
-        return false;
-    } else if(TotalValue == 21){
-        FinalWin()
-        return false;
-    } else{
-        return true;
-    }
-}
-function ActionStand(){
 
+async function ActionStand(){
+    (!document.getElementById('ActionBtnHit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnHit') : '';
+    (!document.getElementById('ActionBtnStand').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnStand') : '';
+    (!document.getElementById('ActionBtnDubble').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnDubble') : '';
+    (!document.getElementById('ActionBtnSplit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnSplit') : '';
+    while (Dealercardvalue.TotalValue < 17) {
+        let card = await PickCard('DealerCardsImageContainer');
+        let NextCardsNumber = Dealercardvalue.AmouthCards+1
+        let {CardValue: CardValue} = Getvalue(card);
+        let NewTotalValue = Dealercardvalue.TotalValue + CardValue;
+        Dealercardvalue = {
+            ...Dealercardvalue,
+            TotalValue: NewTotalValue,
+            AmouthCards: NextCardsNumber,
+            [`ValueCard${NextCardsNumber}`]: CardValue,
+        };
+        SetHtmlElementContent('DealerCardsValue', Dealercardvalue.TotalValue);
+        await TimeOut();
+    }
+    TotalValueCheck();
 }
 function ActionDubble() {
 
@@ -155,11 +174,17 @@ function ActionSplit(){
 
 }
 function FinalBust(){
-    SetHtmlElementContent('GameResults', 'You Bust');
-    
+    SetHtmlElementContent('GameResults', 'Bust');
+    TimeOut();
+    window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
+}
+function FinalWin(){
+    SetHtmlElementContent('GameResults', 'You Win');
+    TimeOut();
+    window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
 }
 async function TimeOut() {
-    await new Promise((resolve) => setTimeout(resolve, 8));
+    await new Promise((resolve) => setTimeout(resolve, 800));
     return;
 }
 function Getvalue(card, Acount) {
