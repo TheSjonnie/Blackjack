@@ -1,4 +1,4 @@
-import {CreateElement} from './BlackjackHandeler.js';
+import {CreateElement} from './helper.js';
 
 document.addEventListener("DOMContentLoaded", function () {
     setEventlistenersToChips();
@@ -28,7 +28,18 @@ function handleChipClick(value,imgPath) {
     CreateElement('img',ClassName, alt, imgPath, ParentElement)
 }
 function SetHtmlElementContent(HtmlElementId, content){
-    document.getElementById(HtmlElementId).innerHTML = content;
+    if (!HtmlElementId || !content){
+        console.error('HtmlElementId or Content is not given Funtion SetHtmlELement');
+        return;
+    }
+    if (Array.isArray(HtmlElementId)){
+        HtmlElementId.forEach(id => {
+            document.getElementById(id).innerHTML = content;
+        });
+    } else{
+        document.getElementById(HtmlElementId).innerHTML = content;
+    }
+    
 }
 function ClassListAddHidden(HtmlElementId){
     document.getElementById(HtmlElementId).classList.add('hidden')

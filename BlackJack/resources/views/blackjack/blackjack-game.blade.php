@@ -23,11 +23,16 @@
                 <p class="text-7xl text-white" id="GameResults"></p>
             </div>
             <div class="container flex justify-center my-9 flex-col gap-8">
-                <div class="container flex justify-center">
+                <div class="container flex justify-center gap-30">
                     <p class="text-white text-2xl" id="UserCardsValue"></p>
+                    <p class="text-white text-2xl hidden" id="UserCardsValue2"></p>
                 </div>
-                <div class="container flex justify-center">
+                <div class="container flex justify-center gap-30">
                     <div class="container flex relative w-fit"  id="userCardsImageContainer">
+                    </div>
+                    <div class="container hidden relative w-fit"  id="userCardsImageContainer2">
+                        <!-- <img src="{{asset('image/DeckCards/clubs_A.png')}}" alt="club 5 img" srcset="" class="CardsImgSize relative rotate-345">
+                        <img src="{{asset('image/DeckCards/clubs_A.png')}}" alt="club 5 img" srcset="" class="CardsImgSize absolute left-3 rotate-355"> -->
                     </div>
                 </div>
             </div>
