@@ -1,13 +1,55 @@
 import { GameEnd } from './EndGame';
-import { CreateElement,PickCard,Getvalue,DisplayTotalValue,ActionBtnSelection } from './helper';
+import { CreateElement,PickCard,Getvalue,DisplayTotalValue,ActionBtnSelection, TimeOut } from './helper';
 import { SetHtmlElementContent, ClassListAddHidden, ClassListAddshow } from './PageUI';
 import { UserClass, DealerClass } from "./blackjack";
 async function ActionHit(deck) {
     console.log("Funtion ==> actionhit");
-    (!document.getElementById('ActionBtnHit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnHit') : '';
-    (!document.getElementById('ActionBtnStand').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnStand') : '';
-    (!document.getElementById('ActionBtnDubble').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnDubble') : '';
-    (!document.getElementById('ActionBtnSplit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnSplit') : '';
+    let UserObject = UserClass.GetObject();
+    console.log("UserObject ==> ", UserObject);
+    let parentContainer = (UserObject.HtmlElementIdValue == 'UserCardsValue2') ? 'userCardsImageContainer2' : 'userCardsImageContainer';
+    let card = await PickCard(parentContainer,deck);
+    let NextCardsNumber = UserObject.AmouthCards+1
+    let {CardValue , Acount} = Getvalue(card, UserObject.Acount);
+    let NewTotalValue = UserObject.TotalValue + CardValue;
+    UserClass.UpdateObject({
+        TotalValue: NewTotalValue,
+        AmouthCards: NextCardsNumber,
+        Acount: Acount,
+        [`ValueCard${NextCardsNumber}`]: CardValue,
+    })
+    UserObject = UserClass.GetObject()
+    DisplayTotalValue(UserObject.HtmlElementIdValue, UserObject);
+    if (TotalValueCheck(UserObject,deck)) {
+        ActionBtnSelection();
+    }
+}
+async function ActionStand(deck){
+console.log("deck ==> ", deck);
+    console.log("Funtion ==> ActionStand");
+    if (UserClass.SplitCheckFinished()){
+        spiltSwitch(deck)
+        console.log("spiltSwitch ==> stand", UserClass.SplitCheckFinished);
+        return;
+    } 
+    let DealerObject = DealerClass.GetObject();
+    while (DealerObject.TotalValue < 17) {
+        let card = await PickCard('DealerCardsImageContainer',deck);
+        let NewAmouthCards = DealerObject.AmouthCards+1
+        let {CardValue: CardValue} = Getvalue(card, DealerObject.Acount);
+        let NewTotalValue = DealerObject.TotalValue + CardValue;
+        DealerObject = {
+            ...DealerObject,
+            TotalValue: NewTotalValue,
+            AmouthCards: NewAmouthCards,
+            [`ValueCard${NewAmouthCards}`]: CardValue,
+        };
+        SetHtmlElementContent('DealerCardsValue', DealerObject.TotalValue);
+        await TimeOut()
+    }
+    GameEnd(false,deck);
+}
+async function ActionDubble(deck) {
+    console.log("Funtion ==> ActionDubble");
     let UserObject = UserClass.GetObject();
     let card = await PickCard('userCardsImageContainer',deck);
     let NextCardsNumber = UserObject.AmouthCards+1
@@ -19,58 +61,13 @@ async function ActionHit(deck) {
         Acount: Acount,
         [`ValueCard${NextCardsNumber}`]: CardValue,
     })
-    console.log("UserCardsValue ==> ", UserClass.GetObject());
-    DisplayTotalValue('UserCardsValue', UserObject);
-    if (TotalValueCheck(UserObject)) {
-        ActionBtnSelection();
-    }
+    UserObject = UserClass.GetObject()
+    DisplayTotalValue(UserObject.HtmlElementIdValue, UserObject);
+    // await new Promise((resolve) => setTimeout(resolve, 800));
+    TotalValueCheck(UserObject,deck);
+    ActionStand(deck);
 }
-async function ActionStand(deck,DealerCardsObject){
-    console.log("Funtion ==> ActionStand");
-    (!document.getElementById('ActionBtnHit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnHit') : '';
-    (!document.getElementById('ActionBtnStand').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnStand') : '';
-    (!document.getElementById('ActionBtnDubble').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnDubble') : '';
-    (!document.getElementById('ActionBtnSplit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnSplit') : '';
-    while (DealerCardsObject.TotalValue < 17) {
-        let card = await PickCard('DealerCardsImageContainer',deck);
-        let NewAmouthCards = DealerCardsObject.AmouthCards+1
-        let {CardValue: CardValue} = Getvalue(card, DealerCardsObject.Acount);
-        let NewTotalValue = DealerCardsObject.TotalValue + CardValue;
-        DealerCardsObject = {
-            ...DealerCardsObject,
-            TotalValue: NewTotalValue,
-            AmouthCards: NewAmouthCards,
-            [`ValueCard${NewAmouthCards}`]: CardValue,
-        };
-        SetHtmlElementContent('DealerCardsValue', DealerCardsObject.TotalValue);
-        await TimeOut();
-    }
-    GameEnd(false,DealerCardsObject,UserObject);
-}
-async function ActionDubble() {
-    console.log("Funtion ==> ActionDubble");
-    (!document.getElementById('ActionBtnHit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnHit') : '';
-    (!document.getElementById('ActionBtnStand').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnStand') : '';
-    (!document.getElementById('ActionBtnDubble').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnDubble') : '';
-    (!document.getElementById('ActionBtnSplit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnSplit') : '';
-    let card = await PickCard('userCardsImageContainer');
-    let NextCardsNumber = UserObject.AmouthCards+1
-    let {CardValue , Acount} = Getvalue(card, UserObject.Acount);
-    let NewTotalValue = UserObject.TotalValue + CardValue;
-    UserObject = {
-        ...UserObject,
-        TotalValue: NewTotalValue,
-        AmouthCards: NextCardsNumber,
-        Acount: Acount,
-        [`ValueCard${NextCardsNumber}`]: CardValue,
-    };
-    console.log("UserCardsValue ==> ", UserObject);
-    DisplayTotalValue('UserCardsValue', UserObject);
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    TotalValueCheck(UserObject,DealerCardsObject,UserObject);
-    ActionStand();
-}
-function ActionSplit(){
+async function ActionSplit(deck){
     console.log('Function ==> ActionSplit')
     document.getElementById('userCardsImageContainer2').classList.replace('hidden', 'flex');
     document.getElementById('UserCardsValue2').classList.replace('hidden', 'flex');
@@ -78,6 +75,7 @@ function ActionSplit(){
     SecondCards.classList.remove('absolute','left-3');
     SecondCards.classList.replace('rotate-355','rotate-345');
     document.getElementById('userCardsImageContainer2').appendChild(SecondCards);
+    let UserObject = UserClass.GetObject();
     let Acount = (UserObject.Acount == 2) ? 1 : 0;
     let UserObject1 = {
         Acount: Acount,
@@ -96,8 +94,16 @@ function ActionSplit(){
     SetHtmlElementContent(['UserCardsValue','UserCardsValue2'], UserObject1.TotalValue);
     ClassListAddshow('ActionBtnHit')
     ClassListAddshow('ActionBtnStand')
+    UserClass.SplitStart(UserObject1,UserObject2)
+    console.log(UserClass.GetObject())
+    ActionHit(deck);
 }
-function TotalValueCheck(Object){
+async function spiltSwitch(deck){
+console.log("function ==> spiltSwitch");
+    UserClass.SplitSwitch();
+    ActionHit(deck);
+}
+function TotalValueCheck(Object,deck){
     console.log("function => TotValueCheck")
     if(Object.TotalValue > 21) {
         if (Object.Acount > 0){
@@ -107,11 +113,11 @@ function TotalValueCheck(Object){
             SetHtmlElementContent(Object.HtmlElementIdValue, Object.TotalValue);
             return true;
         }
-        GameEnd(false)
+        GameEnd(false,deck)
         console.log("return ==> ", 'false');
         return false;
     } else if(Object.TotalValue == 21){
-        GameEnd(false)
+        GameEnd(false,deck)
         console.log("return ==> ", "false");
         return false;
     } else{
@@ -126,4 +132,4 @@ export { ActionHit, ActionStand, ActionSplit, ActionDubble}
 
 
 
-export { CreateElement };
+export { CreateElement, spiltSwitch };

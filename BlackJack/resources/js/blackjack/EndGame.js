@@ -1,7 +1,15 @@
 import { SetHtmlElementContent } from "./PageUI";
 import { TimeOut } from "./helper";
 import { UserClass, DealerClass } from "./blackjack";
-function GameEnd(Blackjack){
+import { spiltSwitch } from "./MidGame";
+function GameEnd(Blackjack,deck){
+console.log("deck ==> ", deck);
+    if (UserClass.SplitCheckFinished()){
+        spiltSwitch(deck)
+        console.log("spiltSwitch ==> spiltSwitch", );
+        return;
+    } 
+    console.log('next')
     let userObject = UserClass.GetObject();
     let DealerObject = DealerClass.GetObject();
     console.log("function ==> GameEnd" );

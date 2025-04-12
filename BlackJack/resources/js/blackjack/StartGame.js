@@ -52,6 +52,10 @@ function addEventListenerToActionBtn(deck) {
     ]
     Btns.forEach(Btn => {
         document.getElementById(Btn.id).addEventListener('click', () => {
+            (!document.getElementById('ActionBtnHit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnHit') : '';
+            (!document.getElementById('ActionBtnStand').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnStand') : '';
+            (!document.getElementById('ActionBtnDubble').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnDubble') : '';
+            (!document.getElementById('ActionBtnSplit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnSplit') : '';
             Btn.func(deck)
         })
     });
