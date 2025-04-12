@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     deck = createdeck();
     document.getElementById('StartGame').addEventListener('click', () => {
         StartGame();
+        addEventListenerToActionBtn('ActionBtnHit');
+        addEventListenerToActionBtn('ActionBtnStand');
+        addEventListenerToActionBtn('ActionBtnDubble');
+        addEventListenerToActionBtn('ActionBtnSplit');
     });
 })
 async function StartGame() {
@@ -28,12 +32,14 @@ async function StartGame() {
     UserCardsValue = {
         AmouthCards: 2,
         TotalValue: Usercardvalue1 + Usercardvalue2,
+        Acount: UserACardsNumber1 + UserACardsNumber2,
         ValueCard1: Usercardvalue1,
         ValueCard2: Usercardvalue2
     }
     Dealercardvalue = {
         AmouthCards: 2,
         TotalValue: Dealercardvalue1 + Dealercardvalue2,
+        Acount: DealerACardsNumber1 + DealerACardsNumber2,
         ValueCard1: Dealercardvalue1,
         ValueCard2: Dealercardvalue2
     }
@@ -42,63 +48,54 @@ async function StartGame() {
     ActionBtnSelection()
 }
 function ActionBtnSelection() {
+console.log("ActionBtnSelection ==> ", "ActionBtnSelection");
     let ActionBtnHitShow = false;
     let ActionBtnStandShow = false;
     let ActionBtnDubbleShow = false
     let ActionBtnSplitShow = false;
-    console.log(Dealercardvalue, UserCardsValue);
+    console.log("UserCardsValue ==> ", UserCardsValue);
+    console.log("Dealercardvalue ==> ", Dealercardvalue);
     if (!UserCardsValue.ValueCard3 ){
-        console.log('hoi')
         if (UserCardsValue.ValueCard1 === UserCardsValue.ValueCard2) {
             ActionBtnHitShow = true;
             ActionBtnStandShow = true;
             ActionBtnSplitShow = true;
-            console.log('hoi')
+
             if (UserCardsValue.TotalValue === 9 || UserCardsValue.TotalValue === 10 || UserCardsValue.TotalValue === 11) {
                 ActionBtnDubbleShow = true;
-                console.log('hoi')
+    
             }
         } else if (UserCardsValue.TotalValue === 9 || UserCardsValue.TotalValue === 10 || UserCardsValue.TotalValue === 11) {
             ActionBtnHitShow = true;
             ActionBtnStandShow = true;
             ActionBtnDubbleShow = true;
-            console.log('hoi')
+
         } else {
             ActionBtnHitShow = true;
             ActionBtnStandShow = true;  
-            console.log('hoi')
+
         }
     } else {
         ActionBtnHitShow = true;
         ActionBtnStandShow = true;
-        console.log('hoi')
     }
-    console.log(ActionBtnDubbleShow,ActionBtnHitShow,ActionBtnSplitShow,ActionBtnStandShow)
-    if (ActionBtnHitShow) {
-        ClassListAddshow('ActionBtnHit')
-        addEventListenerToActionBtn('ActionBtnHit')
-    }
-    if (ActionBtnStandShow) {
-        ClassListAddshow('ActionBtnStand')
-        addEventListenerToActionBtn('ActionBtnStand')
-    }
-    if (ActionBtnDubbleShow) {
-        ClassListAddshow('ActionBtnDubble')
-        addEventListenerToActionBtn('ActionBtnDubble')
-    }
-    if (ActionBtnSplitShow) {
-        ClassListAddshow('ActionBtnSplit')
-        addEventListenerToActionBtn('ActionBtnSplit')
-    }
+    (ActionBtnHitShow) ? ClassListAddshow('ActionBtnHit') : "";
+    (ActionBtnStandShow) ? ClassListAddshow('ActionBtnStand') : "";
+    (ActionBtnDubbleShow) ? ClassListAddshow('ActionBtnDubble') : "";
+    (ActionBtnSplitShow) ? ClassListAddshow('ActionBtnSplit') : "";
+    
 }
 function addEventListenerToActionBtn(HtmlElementId) {
     document.getElementById(HtmlElementId).addEventListener('click', (event) => {
         switch (event.target.id) {
             case 'ActionBtnHit':
                 ActionHit()
+                console.log("ActionHit ==> ", "ActionHit");
+
                 break;
             case 'ActionBtnStand':
                 ActionStand()
+                console.log("ActionStand ==> ", "ActionStand");
                 break;
             case 'ActionBtnDubble':
                 ActionDubble()
@@ -112,11 +109,19 @@ function addEventListenerToActionBtn(HtmlElementId) {
 
     })
 }
-function TotalValueCheck(TotalValue){
-    if(TotalValue > 21) {
-        FinalBust()
+function TotalValueCheck(Object){
+console.log("TotalValue ==> ", Object);
+console.log("TotalValueCheck ==> ", "TotalValueCheck");
+    if(Object.TotalValue > 21) {
+        if (Object.Acount > 0){
+            Object.Acount--
+            Object.TotalValue -= 10
+            console.log("Object ==> ", Object);
+            return true
+        }
+        FinalLos()
         return false;
-    } else if(TotalValue == 21){
+    } else if(Object.TotalValue == 21){
         FinalWin()
         return false;
     } else{
@@ -124,7 +129,6 @@ function TotalValueCheck(TotalValue){
     }
 }
 async function ActionHit() {
-    console.log(UserCardsValue);
     (!document.getElementById('ActionBtnHit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnHit') : '';
     (!document.getElementById('ActionBtnStand').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnStand') : '';
     (!document.getElementById('ActionBtnDubble').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnDubble') : '';
@@ -139,13 +143,12 @@ async function ActionHit() {
         AmouthCards: NextCardsNumber,
         [`ValueCard${NextCardsNumber}`]: CardValue,
     };
-    console.log(UserCardsValue);
+    console.log("UserCardsValue ==> ", UserCardsValue);
     SetHtmlElementContent('UserCardsValue', UserCardsValue.TotalValue);
-    if (TotalValueCheck(UserCardsValue.TotalValue)) {
+    if (TotalValueCheck(UserCardsValue)) {
         ActionBtnSelection();
     }
 }
-
 async function ActionStand(){
     (!document.getElementById('ActionBtnHit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnHit') : '';
     (!document.getElementById('ActionBtnStand').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnStand') : '';
@@ -165,7 +168,10 @@ async function ActionStand(){
         SetHtmlElementContent('DealerCardsValue', Dealercardvalue.TotalValue);
         await TimeOut();
     }
-    TotalValueCheck();
+    // TotalValueCheck();
+    if (TotalValueCheck(Dealercardvalue)){
+           (Dealercardvalue.TotalValue > UserCardsValue.TotalValue) ? FinalLos() : FinalWin();
+    }
 }
 function ActionDubble() {
 
@@ -173,18 +179,20 @@ function ActionDubble() {
 function ActionSplit(){
 
 }
-function FinalBust(){
-    SetHtmlElementContent('GameResults', 'Bust');
-    TimeOut();
-    window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
+async function FinalLos(){
+    SetHtmlElementContent('GameResults', 'You lost');
+    // TimeOut();
+    // await new Promise((resolve) => setTimeout(resolve, 900));
+    // window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
 }
-function FinalWin(){
+async function FinalWin(){
     SetHtmlElementContent('GameResults', 'You Win');
-    TimeOut();
+    // TimeOut();
+    await new Promise((resolve) => setTimeout(resolve, 900));
     window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
 }
 async function TimeOut() {
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    await new Promise((resolve) => setTimeout(resolve, 8));
     return;
 }
 function Getvalue(card, Acount) {
