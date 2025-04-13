@@ -13,4 +13,6 @@
     3. de bet fixen rond om de split funtions
 # bugs
     1. als ik 2 A pak en dan stand gaat die van 22 uit niet van 12
-    
+  
+# Ideas
+    1. 
