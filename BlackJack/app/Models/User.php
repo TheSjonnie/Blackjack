@@ -46,7 +46,7 @@ class User extends Authenticatable
         ];
     }
     public function UserProfile() {
-        return $this->hasOne(UserProfile::class);
+        return $this->hasOne(blackjackProfile::class);
     }
     public function BlackjackPlays() {
         return $this->hasMany(BlackjackPlays::class);

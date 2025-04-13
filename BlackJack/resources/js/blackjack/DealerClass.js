@@ -15,5 +15,11 @@ export class Dealer {
     GetObject(){
         return this.DealerObject;
     }
+    UpdateObject(updates){
+        console.log("updates ==> ", updates);
+            Object.entries(updates).forEach(([property, value]) => {
+                this.DealerObject[property] = value;
+            });
+        }
     
 };

@@ -30,19 +30,25 @@ console.log("deck ==> ", deck);
         spiltSwitch(deck)
         console.log("spiltSwitch ==> stand", UserClass.SplitCheckFinished);
         return;
-    } 
+    }
+    let UserObject =UserClass.GetObject();
+    console.log("UserObject ==> ", UserObject);
+    if (UserObject.Acount > 0){
+        SetHtmlElementContent(UserObject.HtmlElementIdValue, UserObject.TotalValue);
+    }
     let DealerObject = DealerClass.GetObject();
     while (DealerObject.TotalValue < 17) {
         let card = await PickCard('DealerCardsImageContainer',deck);
-        let NewAmouthCards = DealerObject.AmouthCards+1
-        let {CardValue: CardValue} = Getvalue(card, DealerObject.Acount);
+        let NextCardsNumber = DealerObject.AmouthCards+1
+        let {CardValue , Acount} = Getvalue(card, DealerObject.Acount);
         let NewTotalValue = DealerObject.TotalValue + CardValue;
-        DealerObject = {
-            ...DealerObject,
+        DealerClass.UpdateObject({
             TotalValue: NewTotalValue,
-            AmouthCards: NewAmouthCards,
-            [`ValueCard${NewAmouthCards}`]: CardValue,
-        };
+            AmouthCards: NextCardsNumber,
+            Acount: Acount,
+            [`ValueCard${NextCardsNumber}`]: CardValue,
+        })
+        DealerObject = DealerClass.GetObject()
         SetHtmlElementContent('DealerCardsValue', DealerObject.TotalValue);
         await TimeOut()
     }

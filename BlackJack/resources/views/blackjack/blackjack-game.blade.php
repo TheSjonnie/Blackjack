@@ -46,10 +46,14 @@
                     </div>
                 </div>
                 <div class="flex justify-center mb-3">
-                    <div class="container w-2/3 flex flex-row   ">
+                    <div class="container w-2/3 flex flex-col gap-5">
                         <div class="w-fit flex flex-row gap-3 bg-gray-200 p-3 rounded-xl">
                             <p class="text-xl">Bet: </p>
                             <p class="text-xl" id="Bet">0</p>
+                        </div>
+                        <div class="w-fit flex flex-row gap-3 bg-gray-200 p-3 rounded-xl">
+                            <p class="text-xl">Credits: </p>
+                            <p class="text-xl" id="Credits">{{ $profile->Credits}}</p>
                         </div>
                     </div>
                 </div>

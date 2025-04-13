@@ -43,7 +43,7 @@ function Getvalue(card, Acount) {
     return { CardValue, Acount };
 }
 async function TimeOut() {
-    await new Promise((resolve) => setTimeout(resolve, 8));
+    await new Promise((resolve) => setTimeout(resolve, 800));
     return;
 }
 function ActionBtnSelection() {

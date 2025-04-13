@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('UserId');
             $table->unsignedBigInteger('StartCredit');
             $table->unsignedBigInteger('FinishCredit');
-            $table->unsignedBigInteger('inzet');
+            $table->unsignedBigInteger('bet');
             $table->json('DealerCards');
             $table->json('PlayerCards');
             $table->timestamps();

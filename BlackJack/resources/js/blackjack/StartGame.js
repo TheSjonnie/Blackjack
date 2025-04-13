@@ -3,7 +3,13 @@ import { PickCard, TimeOut, Getvalue, DisplayTotalValue, ActionBtnSelection } fr
 import { GameEnd } from "./EndGame";
 import { ActionHit,ActionStand,ActionDubble,ActionSplit } from "./MidGame";
 import { UserClass, DealerClass } from "./blackjack";
+import { updateCredits } from './ApiCalls';
 async function StartGame() {
+    if (UserClass.getUserBet() == 0) return;
+    let newCredit = UserClass.getCredits() - UserClass.getUserBet();
+    console.log("newCredit ==> ", newCredit);
+    await updateCredits(newCredit);
+    UserClass.saveCredits(newCredit);
     let deck = createdeck();
     console.log("Funtion ==> startGame")
     ClassListAddHidden('ChipsbetContainer');

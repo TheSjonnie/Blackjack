@@ -1,3 +1,4 @@
+import { UserClass } from './blackjack.js';
 import {CreateElement} from './helper.js';
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -7,19 +8,29 @@ function setEventlistenersToChips(){
     const chipsContainer = document.getElementById("ChipsBet");
     console.log("chipsContainer ==> ", chipsContainer);
     chipsContainer.addEventListener("click", function (event) {
-        const clickedChip = event.target; // Getting the right Chip
+        const clickedChip = event.target;
         if (clickedChip.tagName === "IMG") {
-            const chipValue = clickedChip.dataset.value;  // Getting the value of the pressed chip
+            const chipValue = clickedChip.dataset.value;
             const imgPath = clickedChip.currentSrc;
             handleChipClick(chipValue,imgPath);
         }
     });
 }
 function handleChipClick(value,imgPath) {
-    const Betelement = document.getElementById('Bet');
-    let number = parseInt( Betelement.innerHTML);
+    const BetElement = document.getElementById('Bet');
+    const creditElement = document.getElementById('Credits');
+    creditElement.innerHTML -= parseInt(value);
+    let number = parseInt( BetElement.innerHTML);
     number += parseInt(value);
-    Betelement.innerHTML = number
+    console.log("number ==> ", number);
+    console.log("getCredits ==> ", UserClass.getCredits());
+
+    if (UserClass.getCredits() < number){
+        alert('You cant bet more when you have credits please buy more if you want to bet more')
+        return;
+    }
+    UserClass.saveUserBet(number);
+    BetElement.innerHTML = number
     const ParentElement = document.getElementById('userChipBetContainer');
     const ClassNameFirst = `ChipImgSize`;
     const ClassnNameOther = `ChipImgSize absolute top-${Math.floor(Math.random() * 6)} left-${Math.floor(Math.random() * 6)}  transform rotate-${Math.floor(Math.random() * 80) / 10}`;

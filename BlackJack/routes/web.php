@@ -4,13 +4,13 @@ use App\Http\Controllers\BlackjackGameController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Services\BlackjackProfileService;
 Route::get('/', function () {
     return redirect('/home');
 });
 
 Route::get('/home', function () {
-    $ViewPage = Auth::check() ? 'blackjack.home-page' : 'blackjack.home-page-guest';
-    
+    $ViewPage = Auth::check() ? 'blackjack.home-page' : 'blackjack.home-page-guest';    
     return view($ViewPage);
 })->name('home');
 
@@ -20,8 +20,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::middleware('auth')->group(function () {
+    Route::get('/Blackjackpage', [BlackjackGameController::class,'index']);
+    Route::get('/getProfile', [BlackjackGameController::class, 'getProfile']);
+    Route::post('/updateCredits',[BlackjackGameController::class, 'updateCredits']);
+    Route::post('/updateProfile',[BlackjackGameController::class, 'updateProfile']);
 });
-Route::get('/Blackjackpage', [BlackjackGameController::class,'index']);
-Route::post('/Blackjackpage', [BlackjackGameController::class,'indexpost']);
 
 require __DIR__.'/auth.php';

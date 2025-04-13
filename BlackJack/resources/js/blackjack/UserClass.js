@@ -1,7 +1,9 @@
 export class User {
-    constructor() {
+    constructor(Credits) {
         this.UserObject;
         this.shouldContinue = false
+        this.userBet = 0;
+        this.userCredits = Credits;
     }
     CreateObject(cardvalue1,cardvalue2,ACardsNumber1,ACardsNumber2){
         return this.UserObject = {
@@ -9,6 +11,7 @@ export class User {
             TotalValue: cardvalue1 + cardvalue2,
             Acount: ACardsNumber1 + ACardsNumber2,
             HtmlElementIdValue: "UserCardsValue",
+            bet: this.userBet,
             ValueCard1: cardvalue1,
             ValueCard2: cardvalue2
         }
@@ -21,6 +24,18 @@ export class User {
         Object.entries(updates).forEach(([property, value]) => {
             this.UserObject[property] = value;
         });
+    }
+    getUserBet(){
+        return this.userBet;
+    }
+    saveUserBet(bet){
+        this.userBet = bet;
+    }
+    getCredits(){
+        return this.userCredits;
+    }
+    saveCredits(newCredits){
+        this.userCredits = newCredits;
     }
     SplitStart(UserObject1,UserObject2){
         this.shouldContinue = true;
