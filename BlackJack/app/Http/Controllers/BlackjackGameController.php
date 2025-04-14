@@ -17,13 +17,13 @@ class BlackjackGameController extends Controller
         $profile = $this->profileService->getProfile(Auth::id());
         return view('blackjack.blackjack-game')->with('profile', $profile);
     }
-    public function getProfile(BlackjackProfileService $blackjackProfileService) {
-        return $blackjackProfileService->getProfile(Auth::id());
+    public function getProfile() {
+        return $this->profileService->getProfile(Auth::id());
     }
-    public function updateCredits(Request $request, BlackjackProfileService $blackjackProfileService) {
-        return $blackjackProfileService->updateCredits($request[0],Auth::id());
+    public function updateCredits(Request $request) {
+        return $this->profileService->updateCredits($request[0],Auth::id());
     }
-    public function updateProfile(Request $request, BlackjackProfileService $blackjackProfileService) {
-        return $blackjackProfileService->updateProfile($request,Auth::id());
+    public function updateProfile(Request $request) {
+        return $this->profileService->updateProfile($request,Auth::id());
     }
 }

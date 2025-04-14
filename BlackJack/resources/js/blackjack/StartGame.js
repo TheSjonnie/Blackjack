@@ -1,5 +1,5 @@
-import { ClassListAddHidden } from "./PageUI";
-import { PickCard, TimeOut, Getvalue, DisplayTotalValue, ActionBtnSelection,showBlackcard } from "./helper";
+import { ClassListAddHidden,  } from "./PageUI";
+import { PickCard, TimeOut, Getvalue, DisplayTotalValue, ActionBtnSelection,CreateElement } from "./helper";
 import { GameEnd } from "./EndGame";
 import { ActionHit,ActionStand,ActionDubble,ActionSplit } from "./MidGame";
 import { UserClass, DealerClass } from "./blackjack";
@@ -23,7 +23,13 @@ async function StartGame() {
 
     let Usercard2 = await PickCard('userCardsImageContainer',deck);
     await TimeOut();
-    showBlackcard('DealerCardsImageContainer');
+    CreateElement(
+        "img",
+        `absolute left-3 rotate-355`,
+        'blank card',
+        "http://127.0.0.1:8000/image/DeckCards/back_light.png",
+        document.getElementById('DealerCardsImageContainer')
+    );
     // let Dealercard2 = await PickCard('DealerCardsImageContainer', deck);
 
     // let { CardValue: Dealercardvalue2, Acount: DealerACardsNumber2 } = Getvalue(Dealercard2, 0);
