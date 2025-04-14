@@ -19,16 +19,16 @@ function setEventlistenersToChips(){
 function handleChipClick(value,imgPath) {
     const BetElement = document.getElementById('Bet');
     const creditElement = document.getElementById('Credits');
-    creditElement.innerHTML -= parseInt(value);
     let number = parseInt( BetElement.innerHTML);
     number += parseInt(value);
-    console.log("number ==> ", number);
-    console.log("getCredits ==> ", UserClass.getCredits());
-
     if (UserClass.getCredits() < number){
         alert('You cant bet more when you have credits please buy more if you want to bet more')
         return;
     }
+    creditElement.innerHTML -= parseInt(value);
+    console.log("number ==> ", number);
+    console.log("getCredits ==> ", UserClass.getCredits());
+
     UserClass.saveUserBet(number);
     BetElement.innerHTML = number
     const ParentElement = document.getElementById('userChipBetContainer');

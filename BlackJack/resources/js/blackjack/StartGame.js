@@ -1,5 +1,5 @@
 import { ClassListAddHidden } from "./PageUI";
-import { PickCard, TimeOut, Getvalue, DisplayTotalValue, ActionBtnSelection } from "./helper";
+import { PickCard, TimeOut, Getvalue, DisplayTotalValue, ActionBtnSelection,showBlackcard } from "./helper";
 import { GameEnd } from "./EndGame";
 import { ActionHit,ActionStand,ActionDubble,ActionSplit } from "./MidGame";
 import { UserClass, DealerClass } from "./blackjack";
@@ -23,10 +23,10 @@ async function StartGame() {
 
     let Usercard2 = await PickCard('userCardsImageContainer',deck);
     await TimeOut();
+    showBlackcard('DealerCardsImageContainer');
+    // let Dealercard2 = await PickCard('DealerCardsImageContainer', deck);
 
-    let Dealercard2 = await PickCard('DealerCardsImageContainer', deck);
-
-    let { CardValue: Dealercardvalue2, Acount: DealerACardsNumber2 } = Getvalue(Dealercard2, 0);
+    // let { CardValue: Dealercardvalue2, Acount: DealerACardsNumber2 } = Getvalue(Dealercard2, 0);
     let { CardValue: Dealercardvalue1, Acount: DealerACardsNumber1 } = Getvalue(Dealercard1, 0);
     let { CardValue: Usercardvalue1, Acount: UserACardsNumber1 } = Getvalue(Usercard1, 0);
     let { CardValue: Usercardvalue2, Acount: UserACardsNumber2 } = Getvalue(Usercard2, 0);
@@ -34,7 +34,7 @@ async function StartGame() {
     let UserObject = UserClass.CreateObject(Usercardvalue1,Usercardvalue2,UserACardsNumber1,UserACardsNumber2);
     console.log("UserObject ==> ", UserObject);
 
-    let DealerObject = DealerClass.CreateObject(Dealercardvalue1,Dealercardvalue2,DealerACardsNumber1,DealerACardsNumber2);
+    let DealerObject = DealerClass.CreateObject(Dealercardvalue1,DealerACardsNumber1);
     console.log("DealerObject ==> ", DealerObject);
     if (DealerObject.TotalValue == 21){
         GameEnd(true);

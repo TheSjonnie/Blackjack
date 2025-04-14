@@ -30,6 +30,23 @@ async function PickCard(parentContainerName,deck) {
     Blankcard.src = `http://127.0.0.1:8000/image/DeckCards/${card}.png`;
     return card;
 }
+function showBlackcard(parentContainerName){
+    console.log("function ==> PickCard");
+    const ParentElement = document.getElementById(parentContainerName);
+    let left = CardsImageClasses[ParentElement.childElementCount]["left"];
+    let rotate = CardsImageClasses[ParentElement.childElementCount]["rotate"];
+    let position =
+        CardsImageClasses[ParentElement.childElementCount]["position"];
+    const ClassName = `CardsImgSize ${position} left-${left} rotate-${rotate}`;
+    const alt = `blankCard Image`;
+    CreateElement(
+        "img",
+        ClassName,
+        alt,
+        "http://127.0.0.1:8000/image/DeckCards/back_light.png",
+        ParentElement
+    );
+}
 function Getvalue(card, Acount) {
     let CardValue = card.split("_")[1];
     if (CardValue == "J" || CardValue == "Q" || CardValue == "K") {
@@ -43,7 +60,7 @@ function Getvalue(card, Acount) {
     return { CardValue, Acount };
 }
 async function TimeOut() {
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    await new Promise((resolve) => setTimeout(resolve, 8));
     return;
 }
 function ActionBtnSelection() {
@@ -52,7 +69,7 @@ function ActionBtnSelection() {
     let ActionBtnHitShow = false;
     let ActionBtnStandShow = false;
     let ActionBtnDubbleShow = false;
-    let ActionBtnSplitShow = true;
+    let ActionBtnSplitShow = false;
     console.log('UserCardValue ==> ', (UserObject) ? UserObject : 'not difend');
     if (!UserObject.ValueCard3) {
         if (UserObject.ValueCard1 === UserObject.ValueCard2) {
@@ -97,4 +114,4 @@ function DisplayTotalValue(HtmlElementId, Object) {
     SetHtmlElementContent(HtmlElementId, HtmlDisplay);
 }
 
-export {CreateElement,ActionBtnSelection,DisplayTotalValue,PickCard, TimeOut,Getvalue}
+export {CreateElement,ActionBtnSelection,DisplayTotalValue,PickCard, TimeOut,Getvalue,showBlackcard}
