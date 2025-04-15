@@ -4,12 +4,6 @@
             <div class="container flex justify-center mb-9 flex-col gap-8">
                 <div class="container flex justify-center">
                     <div class="container flex relative w-fit" id="DealerCardsImageContainer">
-                        <!-- <img src="{{asset('image/DeckCards/clubs_5.png')}}" alt="club 5 img" srcset="" class="CardsImgSize rotate-345">
-                        <img src="{{asset('image/DeckCards/clubs_A.png')}}" alt="club 5 img" srcset="" class="CardsImgSize absolute left-3 rotate-355">
-                        <img src="{{asset('image/DeckCards/clubs_A.png')}}" alt="club 5 img" srcset="" class="CardsImgSize absolute left-6 rotate-5">
-                        <img src="{{asset('image/DeckCards/clubs_A.png')}}" alt="club 5 img" srcset="" class="CardsImgSize absolute left-9 rotate-15">
-                        <img src="{{asset('image/DeckCards/clubs_A.png')}}" alt="club 5 img" srcset="" class="CardsImgSize absolute left-12 rotate-25">
-                        <img src="{{asset('image/DeckCards/clubs_A.png')}}" alt="club 5 img" srcset="" class="CardsImgSize absolute left-15 rotate-35"> -->
                     </div>
                 </div>
                 <div class="container flex justify-center">
@@ -72,4 +66,7 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+        <script src="{{ asset('js/blackjack/blackjack.js') }}"></script>
+    @endsection
 </x-app-layout>

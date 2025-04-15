@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Services\BlackjackProfileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\VarDumper\VarDumper;
+
 class BlackjackGameController extends Controller
 {
     protected $profileService;
@@ -13,11 +15,12 @@ class BlackjackGameController extends Controller
         $this->profileService = $profileService;
     }
 
-    public function index() {
+    public function index(Request $request) {
+        // dd($requst, 'hoi');
         $profile = $this->profileService->getProfile(Auth::id());
         return view('blackjack.blackjack-game')->with('profile', $profile);
     }
-    public function getProfile(BlackjackProfileService $blackjackProfileService) {
+    public function getProfile(Request $request,BlackjackProfileService $blackjackProfileService) {
         return $blackjackProfileService->getProfile(Auth::id());
     }
     public function updateCredits(Request $request, BlackjackProfileService $blackjackProfileService) {

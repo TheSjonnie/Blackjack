@@ -1,18 +1,14 @@
 <?php
 
 use App\Http\Controllers\BlackjackGameController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Services\BlackjackProfileService;
 Route::get('/', function () {
     return redirect('/home');
 });
 
-Route::get('/home', function () {
-    $ViewPage = Auth::check() ? 'blackjack.home-page' : 'blackjack.home-page-guest';    
-    return view($ViewPage);
-})->name('home');
+Route::get('/home',[HomeController::class,'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
