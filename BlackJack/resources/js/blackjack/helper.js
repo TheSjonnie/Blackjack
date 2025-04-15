@@ -1,5 +1,6 @@
-import CardsImageClasses from '../data/CardsImageClasses.json'
-import { SetHtmlElementContent,ClassListAddshow } from './PageUI';
+import CardsImageClasses from "../data/CardsImageClasses.json";
+import { Dealer } from "./DealerClass";
+import { SetHtmlElementContent, ClassListAddshow } from "./PageUI";
 import { UserClass, DealerClass } from "./blackjack";
 function CreateElement(Element, ClassName, Alt, Src, ParentElement) {
     let CreatedElement = document.createElement(Element);
@@ -9,43 +10,39 @@ function CreateElement(Element, ClassName, Alt, Src, ParentElement) {
     ParentElement.appendChild(CreatedElement);
     return CreatedElement;
 }
-async function PickCard(parentContainerName,deck) {
+async function PickCard(parentContainerName, deck) {
     console.log("function ==> PickCard");
     let card = deck[Math.floor(Math.random() * 52)];
     const ParentElement = document.getElementById(parentContainerName);
-    let left = CardsImageClasses[ParentElement.childElementCount]["left"];
-    let rotate = CardsImageClasses[ParentElement.childElementCount]["rotate"];
-    let position =
-        CardsImageClasses[ParentElement.childElementCount]["position"];
-    const ClassName = `CardsImgSize ${position} left-${left} rotate-${rotate}`;
-    const alt = `${card} Image`;
-    let Blankcard = CreateElement(
-        "img",
-        ClassName,
-        alt,
-        "http://127.0.0.1:8000/image/DeckCards/back_light.png",
-        ParentElement
-    );
-    await TimeOut();
+    let DealerObject = DealerClass.GetObject();
+    let childsInParentElement;
+    let Blankcard;
+    if (
+        parentContainerName == "DealerCardsImageContainer" &&
+        DealerObject &&
+        DealerObject.AmouthCards == 1
+    ) {
+        Blankcard = document.getElementById("DealerCardsImageContainer").children[1];
+        Blankcard.alt = card
+    } else {
+        childsInParentElement =ParentElement.childElementCount;
+        let left = CardsImageClasses[childsInParentElement]["left"];
+        let rotate = CardsImageClasses[childsInParentElement]["rotate"];
+        let position = CardsImageClasses[childsInParentElement]["position"];
+        const ClassName = `CardsImgSize ${position} left-${left} rotate-${rotate}`;
+        const alt = `${card} Image`;
+        Blankcard = CreateElement(
+            "img",
+            ClassName,
+            alt,
+            "http://127.0.0.1:8000/image/DeckCards/back_light.png",
+            ParentElement
+        );
+        await TimeOut();
+    }
+
     Blankcard.src = `http://127.0.0.1:8000/image/DeckCards/${card}.png`;
     return card;
-}
-function showBlackcard(parentContainerName){
-    console.log("function ==> PickCard");
-    const ParentElement = document.getElementById(parentContainerName);
-    let left = CardsImageClasses[ParentElement.childElementCount]["left"];
-    let rotate = CardsImageClasses[ParentElement.childElementCount]["rotate"];
-    let position =
-        CardsImageClasses[ParentElement.childElementCount]["position"];
-    const ClassName = `CardsImgSize ${position} left-${left} rotate-${rotate}`;
-    const alt = `blankCard Image`;
-    CreateElement(
-        "img",
-        ClassName,
-        alt,
-        "http://127.0.0.1:8000/image/DeckCards/back_light.png",
-        ParentElement
-    );
 }
 function Getvalue(card, Acount) {
     let CardValue = card.split("_")[1];
@@ -70,7 +67,7 @@ function ActionBtnSelection() {
     let ActionBtnStandShow = false;
     let ActionBtnDubbleShow = false;
     let ActionBtnSplitShow = false;
-    console.log('UserCardValue ==> ', (UserObject) ? UserObject : 'not difend');
+    console.log("UserCardValue ==> ", UserObject ? UserObject : "not difend");
     if (!UserObject.ValueCard3) {
         if (UserObject.ValueCard1 === UserObject.ValueCard2) {
             ActionBtnHitShow = true;
@@ -114,4 +111,11 @@ function DisplayTotalValue(HtmlElementId, Object) {
     SetHtmlElementContent(HtmlElementId, HtmlDisplay);
 }
 
-export {CreateElement,ActionBtnSelection,DisplayTotalValue,PickCard, TimeOut,Getvalue,showBlackcard}
+export {
+    CreateElement,
+    ActionBtnSelection,
+    DisplayTotalValue,
+    PickCard,
+    TimeOut,
+    Getvalue,
+};

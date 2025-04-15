@@ -57,6 +57,6 @@ console.log("deck ==> ", deck);
         }
     }
     await updateProfile(data);
-    // window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
+    window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
 }
 export {GameEnd}
