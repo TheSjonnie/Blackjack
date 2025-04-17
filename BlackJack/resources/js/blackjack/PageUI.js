@@ -1,61 +1,71 @@
-import { UserClass } from './blackjack.js';
-import {CreateElement} from './helper.js';
+import { userClass } from './blackjack.js';
+import { createElementFuntion } from './helper.js';
 
 document.addEventListener("DOMContentLoaded", function () {
-    setEventlistenersToChips();
+    setEventListenersToChips();
 });
-function setEventlistenersToChips(){
-    const chipsContainer = document.getElementById("ChipsBet");
-    console.log("chipsContainer ==> ", chipsContainer);
+function setEventListenersToChips() {
+    const chipsContainer = document.getElementById("chipsBet");
     chipsContainer.addEventListener("click", function (event) {
         const clickedChip = event.target;
         if (clickedChip.tagName === "IMG") {
             const chipValue = clickedChip.dataset.value;
             const imgPath = clickedChip.currentSrc;
-            handleChipClick(chipValue,imgPath);
+            handleChipClick(chipValue, imgPath);
         }
     });
 }
-function handleChipClick(value,imgPath) {
-    const BetElement = document.getElementById('Bet');
-    const creditElement = document.getElementById('Credits');
-    let number = parseInt( BetElement.innerHTML);
+function handleChipClick(value, imgPath) {
+    const betElement = document.getElementById('bet');
+    const creditElement = document.getElementById('credits');
+    let number = parseInt(betElement.innerHTML);
     number += parseInt(value);
-    if (UserClass.getCredits() < number){
-        alert('You cant bet more when you have credits please buy more if you want to bet more')
+    if (userClass.getCredits() < number) {
+        alert('You can\'t bet more than you have credits. Please buy more if you want to bet more.');
         return;
     }
     creditElement.innerHTML -= parseInt(value);
     console.log("number ==> ", number);
-    console.log("getCredits ==> ", UserClass.getCredits());
+    console.log("getCredits ==> ", userClass.getCredits());
 
-    UserClass.saveUserBet(number);
-    BetElement.innerHTML = number
-    const ParentElement = document.getElementById('userChipBetContainer');
-    const ClassNameFirst = `ChipImgSize`;
-    const ClassnNameOther = `ChipImgSize absolute top-${Math.floor(Math.random() * 6)} left-${Math.floor(Math.random() * 6)}  transform rotate-${Math.floor(Math.random() * 80) / 10}`;
-    const ClassName = (ParentElement.childElementCount == 0) ? ClassNameFirst : ClassnNameOther;
-    const alt = `Value ${value} Chip`
-    CreateElement('img',ClassName, alt, imgPath, ParentElement)
+    userClass.saveUserBet(number);
+    betElement.innerHTML = number;
+    const parentElement = document.getElementById('userChipBetContainer');
+    const classNameFirst = `ChipImgSize`;
+    const classNameOther = `ChipImgSize absolute top-${Math.floor(Math.random() * 6)} left-${Math.floor(Math.random() * 6)} transform rotate-${Math.floor(Math.random() * 80) / 10}`;
+    const className = (parentElement.childElementCount == 0) ? classNameFirst : classNameOther;
+    const alt = `Value ${value} Chip`;
+    createElementFuntion('img', className, alt, imgPath, parentElement);
 }
-function SetHtmlElementContent(HtmlElementId, content){
-    if (!HtmlElementId || !content){
-        console.error('HtmlElementId or Content is not given Funtion SetHtmlELement');
+function setHtmlElementContent(htmlElementId, content) {
+    if (!htmlElementId || !content) {
+        console.error('htmlElementId or content is not given in function setHtmlElementContent');
         return;
     }
-    if (Array.isArray(HtmlElementId)){
-        HtmlElementId.forEach(id => {
+    if (Array.isArray(htmlElementId)) {
+        htmlElementId.forEach(id => {
             document.getElementById(id).innerHTML = content;
         });
+    } else {
+        document.getElementById(htmlElementId).innerHTML = content;
+    }
+}
+function classListAddHidden(htmlElementId) {
+    let htmlElement = document.getElementById(htmlElementId);
+    if (htmlElement){
+        htmlElement.classList.add('hidden');
     } else{
-        document.getElementById(HtmlElementId).innerHTML = content;
+        console.error('There is a error in function classListAddhidden line 58 htmlElementId =', htmlElementId)
     }
     
 }
-function ClassListAddHidden(HtmlElementId){
-    document.getElementById(HtmlElementId).classList.add('hidden')
+function classListAddShow(htmlElementId) {
+    let htmlElement = document.getElementById(htmlElementId);
+    if (htmlElement){
+        htmlElement.classList.remove('hidden');
+    } else{
+        console.error('There is a error in function classListAddhidden line 58 htmlElementId =', htmlElementId)
+    }
 }
-function ClassListAddshow(HtmlElementId){
-    document.getElementById(HtmlElementId).classList.remove('hidden')
-}
-export {SetHtmlElementContent, ClassListAddHidden, ClassListAddshow};
+
+export { setHtmlElementContent, classListAddHidden, classListAddShow };

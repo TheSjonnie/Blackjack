@@ -1,26 +1,34 @@
-import { StartGame } from './StartGame';
-import { User } from './UserClass';
-import { Dealer } from './DealerClass';
-import { getCredits } from './ApiCalls';
-let UserClass = null;
-let DealerClass = null;
+import { startGame } from "./startGame";
+import { User } from "./userClass";
+import { Dealer } from "./dealerClass";
+import { getCredits } from "./apiCalls";
+let userClass;
+let dealerClass;
 async function setupGame() {
     try {
-        UserClass = new User(await getCredits())
-        DealerClass = new Dealer()
-        console.log("UserClass ==> ", UserClass);
-        console.log("DealerClass ==> ", DealerClass);
-        return 
+        userClass = new User(await getCredits());
+        dealerClass = new Dealer();
+        console.log("UserClass ==> ", userClass);
+        console.log("dealerClass ==> ", dealerClass);
+        return;
     } catch (err) {
-        console.error(err)
+        console.error(err);
     }
 }
-
-document.addEventListener('DOMContentLoaded', async () => {
-    await setupGame();
-    document.getElementById('StartGame').addEventListener('click', () => {
-        StartGame();
+function setEventlistenerToStartBtn() {
+    document.getElementById("startGame").addEventListener(
+        "click",
+        () => {
+            startGame();
+        },
+        { once: true }
+    );
+}
+if (!window._blackjackInitialized) {
+    window._blackjackInitialized = true;
+    document.addEventListener("DOMContentLoaded", async () => {
+        await setupGame();
+        setEventlistenerToStartBtn();
     });
-})
-
-export {UserClass, DealerClass}
+}
+export { userClass, dealerClass, setEventlistenerToStartBtn };
