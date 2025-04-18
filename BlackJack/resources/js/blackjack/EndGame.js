@@ -5,6 +5,7 @@ import { spiltSwitch } from "./midGame";
 import { updateProfile } from "./apiCalls";
 async function gameEnd(Blackjack,deck){
     console.log("function ==> gameEnd" );
+    console.log("🚀 ~ gameEnd ~ userClass.splitCheck():", userClass.splitCheck())
     if (userClass.splitCheck()){
         if (userClass.splitCheckFinished()){
             spiltSwitch(deck)
@@ -14,49 +15,68 @@ async function gameEnd(Blackjack,deck){
                 result: results,
             })
         } else{
-            let userObject1 = userClass.getObject1()
+            let userObject1 = userClass.getObject1();
+            let dealerObject = dealerClass.getObject();
+            let credits = userClass.getCredits();
+            let {won1,lost1,result: result1,newCredit} = resultsValidation(Blackjack, userObject1.totalValue, dealerObject.totalValue, credits)
+            let userObject2 = userClass.getObject2();
+            console.log("🚀 ~ gameEnd ~ result1:", result1)
+            let {won2,lost2,result: result2,newCredit: finalCredit} = resultsValidation(Blackjack, userObject2.totalValue, dealerObject.totalValue, newCredit)
+            console.log("🚀 ~ gameEnd ~ result2:", result2)
+            setHtmlElementContent('gameResults', result1);
+            setHtmlElementContent('gameResults2', result2);
+            timeOut();
+            let data = {
+                profileUpdates: {
+                    credits: finalCredit,
+                    Gameswon: won1,
+                    Gameslost: lost1,
+                }
+            }
+            await updateProfile(data);
+            
         }
-    }
-    let {won,lost,result,newCredit} = resultsValidation(Blackjack)
-    console.log({won,lost,result,newCredit})
-    setHtmlElementContent('gameResults', result);
-    timeOut();
-    let data = {
-        profileUpdates: {
-            credits: newCredit,
-            Gameswon: won,
-            Gameslost: lost,
+        let userObject = userClass.getObject();
+        let dealerObject = dealerClass.getObject();
+        let {won,lost,result,newCredit} = resultsValidation(Blackjack, userObject.totalValue, dealerObject.totalValue, userClass.getCredits())
+        console.log({won,lost,result,newCredit})
+        setHtmlElementContent('gameResults', result);
+        timeOut();
+        let data = {
+            profileUpdates: {
+                credits: newCredit,
+                Gameswon: won,
+                Gameslost: lost,
+            }
         }
+        await updateProfile(data);
     }
-    await updateProfile(data);
+
     // window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
 }
-function resultsValidation(Blackjack){
+function resultsValidation(Blackjack,userTotalValue, dealerTotalValue, newCredit){
     let won = false
     let lost = false
     let result;
-    let userObject = userClass.getObject();
-    let dealerObject = dealerClass.getObject();
-    let newCredit = userClass.getCredits();
     if(Blackjack){
-        if (userObject.totalValue == 21){
+        if (userTotalValue == 21){
             result = "Blackjack";
             newCredit += userClass.getUserBet() * 2.5;
             won = true
-        } else if(dealerObject.totalValue == 21){
+        } else if(dealerTotalValue == 21){
             result = "You lose";
             lost = true
         }
-    } else if(userObject.totalValue > 21){
+    } else if(userTotalValue > 21){
         result = "you bust";
         lost = true
-    } else if (dealerObject.totalValue > 21){
+    } else if (dealerTotalValue > 21){
         result = "dealer bust";
         newCredit += userClass.getUserBet() * 2; 
-    }  else if (dealerObject.totalValue > userObject.totalValue){
+    }  else if (dealerTotalValue > userTotalValue){
         result = "you lost";
         lost = true
-    } else if (dealerObject.totalValue == userObject.totalValue){
+    } else if (dealerTotalValue == userTotalValue){
         result = "Draw";
         newCredit += userClass.getUserBet(); 
     } else{
@@ -64,6 +84,7 @@ function resultsValidation(Blackjack){
         won = true
         newCredit += userClass.getUserBet() * 2; 
     }
+    console.log("🚀 ~ resultsValidation ~ result:", result)
     return {won,lost,result,newCredit}
 }
 export {gameEnd}

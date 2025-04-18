@@ -38,8 +38,11 @@ function handleChipClick(value, imgPath) {
     createElementFuntion('img', className, alt, imgPath, parentElement);
 }
 function setHtmlElementContent(htmlElementId, content) {
-    if (!htmlElementId || !content) {
-        console.error('htmlElementId or content is not given in function setHtmlElementContent');
+    if (!htmlElementId) {
+        console.error('htmlElementId is not given in function setHtmlElementContent');
+        return;
+    } else if (!content){
+        console.error('content is not given in function setHtmlElementContent');
         return;
     }
     if (Array.isArray(htmlElementId)) {

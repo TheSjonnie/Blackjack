@@ -19,6 +19,7 @@ async function actionHit(deck) {
         [`valueCard${nextCardsNumber}`]: cardValue,
     })
     userObject = userClass.getObject()
+    console.log("🚀 ~ actionHit ~ userObject:", userObject)
     displayTotalValue(userObject.htmlElementIdValue, userObject);
     if (totalValueCheck(userObject,deck)) {
         actionBtnSelection();
@@ -58,12 +59,12 @@ async function actionDubble(deck) {
     let userObject = userClass.getObject();
     let card = await pickCard('userCardsImageContainer',deck);
     let nextCardsNumber = userObject.amouthCards+1
-    let {cardValue , Acount} = getvalue(card, userObject.Acount);
+    let {cardValue , aCount} = getvalue(card, userObject.aCount);
     let newTotalValue = userObject.totalValue + cardValue;
     userClass.updateObject({
         totalValue: newTotalValue,
         amouthCards: nextCardsNumber,
-        Acount: Acount,
+        aCount: aCount,
         [`ValueCard${nextCardsNumber}`]: cardValue,
     })
     userObject = userClass.getObject()
@@ -74,6 +75,7 @@ async function actionDubble(deck) {
 }
 async function actionSplit(deck){
     console.log('Function ==> actionSplit')
+    
     document.getElementById('userCardsImageContainer2').classList.replace('hidden', 'flex');
     document.getElementById('userCardsValue2').classList.replace('hidden', 'flex');
     let secondCards = document.getElementById('userCardsImageContainer').children[1]
@@ -81,21 +83,21 @@ async function actionSplit(deck){
     secondCards.classList.replace('rotate-355','rotate-345');
     document.getElementById('userCardsImageContainer2').appendChild(secondCards);
     let userObject = userClass.getObject();
-    let Acount = (userObject.Acount == 2) ? 1 : 0;
+    let aCount = (userObject.aCount == 2) ? 1 : 0;
     let userObject1 = {
-        Acount: Acount,
+        aCount: aCount,
         results: false,
         amouthCards: 1,
-        htmlElementIdValue: 'UserCardsValue',
-        totalValue: userObject.ValueCard1,
-        ValueCard1: userObject.ValueCard1,
+        htmlElementIdValue: 'userCardsValue',
+        totalValue: userObject.valueCard1,
+        valueCard1: userObject.valueCard1,
     }
     let userObject2 = {
-        Acount: Acount,
+        aCount: aCount,
         amouthCards: 1,
         htmlElementIdValue: 'userCardsValue2',
-        totalValue: userObject.ValueCard2,
-        ValueCard1: userObject.ValueCard2,
+        totalValue: userObject.valueCard2,
+        valueCard1: userObject.valueCard2,
     }
     dubbleBet(true);
     setHtmlElementContent(['userCardsValue','userCardsValue2'], userObject1.totalValue);

@@ -13,8 +13,10 @@
             <div class="container flex justify-center my-6" id="startBtnContainer">
                 <button id="startGame" class="bg-yellow-500 rounded-xl px-7 py-2 cursor-pointer text-white">Start Game</button>
             </div>
-            <div class="container text-center">
+            <div class="container text-center flex flex-row justify-center gap-30">
                 <p class="text-7xl text-white" id="gameResults"></p>
+                <p class="text-7xl text-white" id="gameResults2"></p>
+
             </div>
             <div class="container flex justify-center my-9 flex-col gap-8">
                 <div class="container flex justify-center gap-30">
@@ -25,6 +27,7 @@
                     <div class="container hidden relative w-fit" id="userCardsImageContainer2">
                     </div>
                     <div class="container flex relative w-fit" id="userCardsImageContainer">
+
                     </div>
                 </div>
             </div>

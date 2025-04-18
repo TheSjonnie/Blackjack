@@ -27,7 +27,7 @@ async function startGame() {
     await timeOut();
     createElementFuntion(
         "img",
-        `absolute left-3 rotate-355`,
+        `CardsImgSize absolute left-3 rotate-355`,
         'blank card',
         "http://127.0.0.1:8000/image/DeckCards/back_light.png",
         document.getElementById('dealerCardsImageContainer')

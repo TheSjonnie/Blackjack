@@ -16,13 +16,10 @@ console.log("parentContainerName ==> ", parentContainerName);
     let card = deck[Math.floor(Math.random() * 52)];
     const parentElement = document.getElementById(parentContainerName);
     let dealerObject = dealerClass.getObject();
+    console.log("dealerobject ==> ", dealerObject);
     let childsInparentElement;
     let blankcard;
-    if (
-        parentContainerName == "dealerCardsImageContainer" &&
-        dealerObject &&
-        dealerObject.AmouthCards == 1
-    ) {
+    if (parentContainerName == "dealerCardsImageContainer" && dealerObject && dealerObject.amouthCards == 1) {
         blankcard = document.getElementById("dealerCardsImageContainer").children[1];
         blankcard.alt = card
     } else {
