@@ -1,53 +1,65 @@
 export class User {
-    constructor(Credits) {
-        this.UserObject;
-        this.shouldContinue = false
+    constructor(credits) {
+        this.userObject;
+        this.shouldContinue = false;
+        this.split = false;
         this.userBet = 0;
-        this.userCredits = Credits;
+        this.userCredits = credits;
     }
-    CreateObject(cardvalue1,cardvalue2,ACardsNumber1,ACardsNumber2){
-        return this.UserObject = {
-            AmouthCards: 2,
-            TotalValue: cardvalue1 + cardvalue2,
-            Acount: ACardsNumber1 + ACardsNumber2,
-            HtmlElementIdValue: "UserCardsValue",
+    createObject(cardValue1, cardValue2, aCardsNumber1, aCardsNumber2) {
+        return this.userObject = {
+            amouthCards: 2,
+            totalValue: cardValue1 + cardValue2,
+            aCount: aCardsNumber1 + aCardsNumber2,
+            htmlElementIdValue: "userCardsValue",
             bet: this.userBet,
-            ValueCard1: cardvalue1,
-            ValueCard2: cardvalue2
-        }
+            valueCard1: cardValue1,
+            valueCard2: cardValue2
+        };
     }
-    GetObject(){
-        return this.UserObject;
+    getObject() {
+        return this.userObject;
     }
-    UpdateObject(updates){
-    console.log("updates ==> ", updates);
+    getObject1() {
+        return this.userObject1;
+    }
+    getObject2() {
+        return this.userObject2;
+    }
+    updateObject(updates) {
+        console.log("updates ==> ", updates);
         Object.entries(updates).forEach(([property, value]) => {
-            this.UserObject[property] = value;
+            this.userObject[property] = value;
         });
     }
-    getUserBet(){
+    getUserBet() {
         return this.userBet;
     }
-    saveUserBet(bet){
+    saveUserBet(bet) {
         this.userBet = bet;
     }
-    getCredits(){
+    getCredits() {
         return this.userCredits;
     }
-    saveCredits(newCredits){
+    saveCredits(newCredits) {
         this.userCredits = newCredits;
     }
-    SplitStart(UserObject1,UserObject2){
+    splitStart(userObject1, userObject2) {
         this.shouldContinue = true;
-        this.UserObject2 = UserObject2
-        this.UserObject = UserObject1; 
+        this.split = true;
+        this.userObject2 = userObject2;
+        this.userObject1 = userObject1;
+        this.userObject = userObject1; 
     }
-    SplitCheckFinished(){
-        return (this.shouldContinue)
+    splitCheckFinished() {
+        return this.shouldContinue;
     }
-    SplitSwitch(){
-        this.UserObject = this.UserObject2
-        console.log(this.UserObject);
-        this.shouldContinue = false
+    splitCheck() {
+        return this.split;
+    }
+    splitSwitch() {
+        this.userObject = this.userObject2;
+        console.log(this.userObject);
+        this.shouldContinue = false;
     }
 };

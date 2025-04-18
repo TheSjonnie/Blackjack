@@ -1,62 +1,69 @@
-import { SetHtmlElementContent } from "./PageUI";
-import { TimeOut } from "./helper";
-import { UserClass, DealerClass } from "./blackjack";
-import { spiltSwitch } from "./MidGame";
-import { updateProfile } from "./ApiCalls";
-async function GameEnd(Blackjack,deck){
-console.log("deck ==> ", deck);
-    if (UserClass.SplitCheckFinished()){
-        spiltSwitch(deck)
-        console.log("spiltSwitch ==> spiltSwitch", );
-        return;
-    } 
-    console.log('next')
-    let userObject = UserClass.GetObject();
-    console.log("userObject ==> ", userObject);
-    let DealerObject = DealerClass.GetObject();
-    console.log("DealerObject ==> ", DealerObject);
-    console.log("function ==> GameEnd" );
-    let result;
-    let newCredit = UserClass.getCredits();
-    let Won = false
-    let Lost = false
-    if(Blackjack){
-        if (userObject.TotalValue == 21){
-            result = "Blackjack";
-            newCredit += UserClass.getUserBet() * 2.5;
-            Won = true
-        } else if(DealerObject.TotalValue == 21){
-            result = "You lose";
-            Lost = true
+import { setHtmlElementContent } from "./pageUI";
+import { timeOut } from "./helper";
+import { userClass, dealerClass } from "./blackjack";
+import { spiltSwitch } from "./midGame";
+import { updateProfile } from "./apiCalls";
+async function gameEnd(Blackjack,deck){
+    console.log("function ==> gameEnd" );
+    if (userClass.splitCheck()){
+        if (userClass.splitCheckFinished()){
+            spiltSwitch(deck)
+            let {won} = resultsValidation(Blackjack)
+            let results = (won) ? 'won' : 'lost';
+            userClass.updateObject({
+                result: results,
+            })
+        } else{
+            let userObject1 = userClass.getObject1()
         }
-    } else if (DealerObject.TotalValue > 21){
-        result = "dealer bust";
-        newCredit += UserClass.getUserBet() * 2; 
-        Won = true
-    } else if(userObject.TotalValue > 21){
-        result = "you bust";
-        Lost = true
-    } else if (DealerObject.TotalValue > userObject.TotalValue){
-        result = "you lost";
-        Lost = true
-    } else if (DealerObject.TotalValue == userObject.TotalValue){
-        result = "Draw";
-        newCredit += UserClass.getUserBet(); 
-    } else{
-        result = "you won";
-        Won = true
-        newCredit += UserClass.getUserBet() * 2; 
     }
-    SetHtmlElementContent('GameResults', result);
-    TimeOut();
+    let {won,lost,result,newCredit} = resultsValidation(Blackjack)
+    console.log({won,lost,result,newCredit})
+    setHtmlElementContent('gameResults', result);
+    timeOut();
     let data = {
-        ProfileUpdates: {
+        profileUpdates: {
             credits: newCredit,
-            GamesWon: Won,
-            GamesLost: Lost,
+            Gameswon: won,
+            Gameslost: lost,
         }
     }
     await updateProfile(data);
-    window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
+    // window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
 }
-export {GameEnd}
+function resultsValidation(Blackjack){
+    let won = false
+    let lost = false
+    let result;
+    let userObject = userClass.getObject();
+    let dealerObject = dealerClass.getObject();
+    let newCredit = userClass.getCredits();
+    if(Blackjack){
+        if (userObject.totalValue == 21){
+            result = "Blackjack";
+            newCredit += userClass.getUserBet() * 2.5;
+            won = true
+        } else if(dealerObject.totalValue == 21){
+            result = "You lose";
+            lost = true
+        }
+    } else if(userObject.totalValue > 21){
+        result = "you bust";
+        lost = true
+    } else if (dealerObject.totalValue > 21){
+        result = "dealer bust";
+        newCredit += userClass.getUserBet() * 2; 
+    }  else if (dealerObject.totalValue > userObject.totalValue){
+        result = "you lost";
+        lost = true
+    } else if (dealerObject.totalValue == userObject.totalValue){
+        result = "Draw";
+        newCredit += userClass.getUserBet(); 
+    } else{
+        result = "you won";
+        won = true
+        newCredit += userClass.getUserBet() * 2; 
+    }
+    return {won,lost,result,newCredit}
+}
+export {gameEnd}

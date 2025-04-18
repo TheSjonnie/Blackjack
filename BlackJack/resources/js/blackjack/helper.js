@@ -1,121 +1,124 @@
-import CardsImageClasses from "../data/CardsImageClasses.json";
-import { Dealer } from "./DealerClass";
-import { SetHtmlElementContent, ClassListAddshow } from "./PageUI";
-import { UserClass, DealerClass } from "./blackjack";
-function CreateElement(Element, ClassName, Alt, Src, ParentElement) {
-    let CreatedElement = document.createElement(Element);
-    CreatedElement.setAttribute("src", Src);
-    CreatedElement.setAttribute("class", ClassName);
-    CreatedElement.alt = Alt;
-    ParentElement.appendChild(CreatedElement);
-    return CreatedElement;
+import cardsImageClasses from "../data/cardsImageClasses.json";
+import { setHtmlElementContent, classListAddShow } from "./pageUI";
+import { userClass, dealerClass } from "./blackjack";
+function createElementFuntion(element, className, alt, src, parentElement) {
+console.log("parentElement ==> ", parentElement);
+    let createdElement = document.createElement(element);
+    createdElement.setAttribute("src", src);
+    createdElement.setAttribute("class", className);
+    createdElement.alt = alt;
+    parentElement.appendChild(createdElement);
+    return createdElement;
 }
-async function PickCard(parentContainerName, deck) {
-    console.log("function ==> PickCard");
+async function pickCard(parentContainerName, deck) {
+console.log("parentContainerName ==> ", parentContainerName);
+    console.log("function ==> pickCard");
     let card = deck[Math.floor(Math.random() * 52)];
-    const ParentElement = document.getElementById(parentContainerName);
-    let DealerObject = DealerClass.GetObject();
-    let childsInParentElement;
-    let Blankcard;
+    const parentElement = document.getElementById(parentContainerName);
+    let dealerObject = dealerClass.getObject();
+    let childsInparentElement;
+    let blankcard;
     if (
-        parentContainerName == "DealerCardsImageContainer" &&
-        DealerObject &&
-        DealerObject.AmouthCards == 1
+        parentContainerName == "dealerCardsImageContainer" &&
+        dealerObject &&
+        dealerObject.AmouthCards == 1
     ) {
-        Blankcard = document.getElementById("DealerCardsImageContainer").children[1];
-        Blankcard.alt = card
+        blankcard = document.getElementById("dealerCardsImageContainer").children[1];
+        blankcard.alt = card
     } else {
-        childsInParentElement =ParentElement.childElementCount;
-        let left = CardsImageClasses[childsInParentElement]["left"];
-        let rotate = CardsImageClasses[childsInParentElement]["rotate"];
-        let position = CardsImageClasses[childsInParentElement]["position"];
-        const ClassName = `CardsImgSize ${position} left-${left} rotate-${rotate}`;
+        childsInparentElement = parentElement.childElementCount;
+        let left = cardsImageClasses[childsInparentElement]["left"];
+        let rotate = cardsImageClasses[childsInparentElement]["rotate"];
+        let position = cardsImageClasses[childsInparentElement]["position"];
+        const className = `CardsImgSize ${position} left-${left} rotate-${rotate}`;
         const alt = `${card} Image`;
-        Blankcard = CreateElement(
+        blankcard = createElementFuntion(
             "img",
-            ClassName,
+            className,
             alt,
             "http://127.0.0.1:8000/image/DeckCards/back_light.png",
-            ParentElement
+            parentElement
         );
-        await TimeOut();
+        await timeOut();
     }
 
-    Blankcard.src = `http://127.0.0.1:8000/image/DeckCards/${card}.png`;
+    blankcard.src = `http://127.0.0.1:8000/image/DeckCards/${card}.png`;
     return card;
 }
-function Getvalue(card, Acount) {
-    let CardValue = card.split("_")[1];
-    if (CardValue == "J" || CardValue == "Q" || CardValue == "K") {
-        CardValue = 10;
-    } else if (CardValue == "A") {
-        CardValue = 11;
-        Acount++;
+function getvalue(card, aCount) {
+    let cardValue = card.split("_")[1];
+    if (cardValue == "J" || cardValue == "Q" || cardValue == "K") {
+        cardValue = 10;
+    } else if (cardValue == "A") {
+        cardValue = 11;
+        aCount++;
     } else {
-        CardValue = parseInt(CardValue);
+        cardValue = parseInt(cardValue);
     }
-    return { CardValue, Acount };
+    return { cardValue, aCount };
 }
-async function TimeOut() {
+async function timeOut() {
     await new Promise((resolve) => setTimeout(resolve, 8));
     return;
 }
-function ActionBtnSelection() {
-    console.log("function ==> ", "ActionBtnSelection");
-    let UserObject = UserClass.GetObject();
-    let ActionBtnHitShow = false;
-    let ActionBtnStandShow = false;
-    let ActionBtnDubbleShow = false;
-    let ActionBtnSplitShow = false;
-    console.log("UserCardValue ==> ", UserObject ? UserObject : "not difend");
-    if (!UserObject.ValueCard3) {
-        if (UserObject.ValueCard1 === UserObject.ValueCard2) {
-            ActionBtnHitShow = true;
-            ActionBtnStandShow = true;
-            ActionBtnSplitShow = true;
+function actionBtnSelection() {
+    console.log("function ==> ", "actionBtnSelection");
+    let userObject = userClass.getObject();
+    let actionBtnHitShow = false;
+    let actionBtnStandShow = false;
+    let actionBtnDubbleShow = true;
+    let actionBtnSplitShow = true;
+    console.log("UsercardValue ==> ", userObject ? userObject : "not difend");
+    if (!userObject.valueCard3) {
+        if (userObject.valueCard1 === userObject.valueCard2) {
+            actionBtnHitShow = true;
+            actionBtnStandShow = true;
+            actionBtnSplitShow = true;
             if (
-                UserObject.TotalValue === 9 ||
-                UserObject.TotalValue === 10 ||
-                UserObject.TotalValue === 11
+                userObject.TotalValue === 9 ||
+                userObject.TotalValue === 10 ||
+                userObject.TotalValue === 11
             ) {
-                ActionBtnDubbleShow = true;
+                actionBtnDubbleShow = true;
             }
         } else if (
-            UserObject.TotalValue === 9 ||
-            UserObject.TotalValue === 10 ||
-            UserObject.TotalValue === 11
+            userObject.TotalValue === 9 ||
+            userObject.TotalValue === 10 ||
+            userObject.TotalValue === 11
         ) {
-            ActionBtnHitShow = true;
-            ActionBtnStandShow = true;
-            ActionBtnDubbleShow = true;
+            actionBtnHitShow = true;
+            actionBtnStandShow = true;
+            actionBtnDubbleShow = true;
         } else {
-            ActionBtnHitShow = true;
-            ActionBtnStandShow = true;
+            actionBtnHitShow = true;
+            actionBtnStandShow = true;
         }
     } else {
-        ActionBtnHitShow = true;
-        ActionBtnStandShow = true;
+        actionBtnHitShow = true;
+        actionBtnStandShow = true;
     }
-    ActionBtnHitShow ? ClassListAddshow("ActionBtnHit") : "";
-    ActionBtnStandShow ? ClassListAddshow("ActionBtnStand") : "";
-    ActionBtnDubbleShow ? ClassListAddshow("ActionBtnDubble") : "";
-    ActionBtnSplitShow ? ClassListAddshow("ActionBtnSplit") : "";
+    actionBtnHitShow ? classListAddShow("actionBtnHit") : "";
+    actionBtnStandShow ? classListAddShow("actionBtnStand") : "";
+    actionBtnDubbleShow ? classListAddShow("actionBtnDubble") : "";
+    actionBtnSplitShow ? classListAddShow("actionBtnSplit") : "";
 }
-function DisplayTotalValue(HtmlElementId, Object) {
-    let HtmlDisplay;
-    if (Object.Acount > 0) {
-        HtmlDisplay = `${Object.TotalValue - 10}/${Object.TotalValue}`;
+function displayTotalValue(htmlElementId, object) {
+console.log("object ==> ", object);
+console.log("htmlElementId ==> ", htmlElementId);
+    let htmlDisplay;
+    if (object.Acount > 0) {
+        htmlDisplay = `${object.totalValue - 10}/${object.totalValue}`;
     } else {
-        HtmlDisplay = Object.TotalValue;
+        htmlDisplay = object.totalValue;
     }
-    SetHtmlElementContent(HtmlElementId, HtmlDisplay);
+    setHtmlElementContent(htmlElementId, htmlDisplay);
 }
 
 export {
-    CreateElement,
-    ActionBtnSelection,
-    DisplayTotalValue,
-    PickCard,
-    TimeOut,
-    Getvalue,
+    createElementFuntion,
+    actionBtnSelection,
+    displayTotalValue,
+    pickCard,
+    timeOut,
+    getvalue,
 };

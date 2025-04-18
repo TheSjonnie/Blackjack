@@ -1,74 +1,75 @@
-import { ClassListAddHidden,  } from "./PageUI";
-import { PickCard, TimeOut, Getvalue, DisplayTotalValue, ActionBtnSelection,CreateElement } from "./helper";
-import { GameEnd } from "./EndGame";
-import { ActionHit,ActionStand,ActionDubble,ActionSplit } from "./MidGame";
-import { UserClass, DealerClass } from "./blackjack";
-import { updateCredits } from './ApiCalls';
-async function StartGame() {
-    if (UserClass.getUserBet() == 0) return;
-    let newCredit = UserClass.getCredits() - UserClass.getUserBet();
-    console.log("newCredit ==> ", newCredit);
-    await updateCredits(newCredit);
-    UserClass.saveCredits(newCredit);
-    let deck = createdeck();
+import { classListAddHidden,  } from "./pageUI";
+import { pickCard, timeOut, getvalue, displayTotalValue, actionBtnSelection, createElementFuntion } from "./helper";
+import { gameEnd } from "./endGame";
+import { actionHit,actionStand,actionDubble,actionSplit } from "./midGame";
+import { userClass, dealerClass,setEventlistenerToStartBtn } from "./blackjack";
+import { updateCredits } from './apiCalls';
+async function startGame() {
     console.log("Funtion ==> startGame")
-    ClassListAddHidden('ChipsbetContainer');
-    ClassListAddHidden('StartBtnContainer');
+    if (userClass.getUserBet() == 0){
+        setEventlistenerToStartBtn();
+        return;
+    } 
+    let newCredit = userClass.getCredits() - userClass.getUserBet();
+    await updateCredits(newCredit);
+    userClass.saveCredits(newCredit);
+    let deck = createdeck();
+    classListAddHidden('chipsBetContainer');
+    classListAddHidden('startBtnContainer');
 
-    let Usercard1 = await PickCard('userCardsImageContainer',deck);
-    await TimeOut();
+    let usercard1 = await pickCard('userCardsImageContainer',deck);
+    await timeOut();
 
-    let Dealercard1 = await PickCard('DealerCardsImageContainer',deck);
-    await TimeOut();
+    let dealercard1 = await pickCard('dealerCardsImageContainer',deck);
+    await timeOut();
 
-    let Usercard2 = await PickCard('userCardsImageContainer',deck);
-    await TimeOut();
-    CreateElement(
+    let usercard2 = await pickCard('userCardsImageContainer',deck);
+    await timeOut();
+    createElementFuntion(
         "img",
         `absolute left-3 rotate-355`,
         'blank card',
         "http://127.0.0.1:8000/image/DeckCards/back_light.png",
-        document.getElementById('DealerCardsImageContainer')
+        document.getElementById('dealerCardsImageContainer')
     );
-    // let Dealercard2 = await PickCard('DealerCardsImageContainer', deck);
+    // let Dealercard2 = await pickCard('DealerCardsImageContainer', deck);
 
-    // let { CardValue: Dealercardvalue2, Acount: DealerACardsNumber2 } = Getvalue(Dealercard2, 0);
-    let { CardValue: Dealercardvalue1, Acount: DealerACardsNumber1 } = Getvalue(Dealercard1, 0);
-    let { CardValue: Usercardvalue1, Acount: UserACardsNumber1 } = Getvalue(Usercard1, 0);
-    let { CardValue: Usercardvalue2, Acount: UserACardsNumber2 } = Getvalue(Usercard2, 0);
+    // let { cardValue: DealercardValue2, Acount: DealerACardsNumber2 } = getvalue(Dealercard2, 0);
+    let { cardValue: dealerCardValue1, aCount: dealerACardsNumber1 } = getvalue(dealercard1, 0);
+    let { cardValue: userCardValue1, aCount: userACardsNumber1 } = getvalue(usercard1, 0);
+    let { cardValue: userCardValue2, aCount: userACardsNumber2 } = getvalue(usercard2, 0);
 
-    let UserObject = UserClass.CreateObject(Usercardvalue1,Usercardvalue2,UserACardsNumber1,UserACardsNumber2);
-    console.log("UserObject ==> ", UserObject);
+    let userObject = userClass.createObject(userCardValue1,userCardValue2,userACardsNumber1,userACardsNumber2);
+    console.log("userObject ==> ", userObject);
 
-    let DealerObject = DealerClass.CreateObject(Dealercardvalue1,DealerACardsNumber1);
-    console.log("DealerObject ==> ", DealerObject);
-    if (DealerObject.TotalValue == 21){
-        GameEnd(true);
+    let dealerObject = dealerClass.createObject(dealerCardValue1,dealerACardsNumber1);
+    if (dealerObject.totalValue == 21){
+        gameEnd(true);
         return
-    } else if (UserObject.TotalValue ==21){
-        GameEnd(true)
+    } else if (userObject.totalValue ==21){
+        gameEnd(true)
         return
     }
 
     addEventListenerToActionBtn(deck);
-    DisplayTotalValue('DealerCardsValue', DealerObject)
-    DisplayTotalValue('UserCardsValue', UserObject);
-    ActionBtnSelection(UserObject)
+    displayTotalValue('dealerCardsValue', dealerObject)
+    displayTotalValue('userCardsValue', userObject);
+    actionBtnSelection(userObject)
 }
 function addEventListenerToActionBtn(deck) {
-    let Btns = [
-        { id: 'ActionBtnHit', func: ActionHit },
-        { id: 'ActionBtnStand', func: ActionStand },
-        { id: 'ActionBtnDubble', func: ActionDubble },
-        { id: 'ActionBtnSplit', func: ActionSplit },
+    let btns = [
+        { id: 'actionBtnHit', func: actionHit },
+        { id: 'actionBtnStand', func: actionStand },
+        { id: 'actionBtnDubble', func: actionDubble },
+        { id: 'actionBtnSplit', func: actionSplit },
     ]
-    Btns.forEach(Btn => {
-        document.getElementById(Btn.id).addEventListener('click', () => {
-            (!document.getElementById('ActionBtnHit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnHit') : '';
-            (!document.getElementById('ActionBtnStand').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnStand') : '';
-            (!document.getElementById('ActionBtnDubble').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnDubble') : '';
-            (!document.getElementById('ActionBtnSplit').classList.contains('hidden')) ? ClassListAddHidden('ActionBtnSplit') : '';
-            Btn.func(deck)
+    btns.forEach(btn => {
+        document.getElementById(btn.id).addEventListener('click', () => {
+            (!document.getElementById('actionBtnHit').classList.contains('hidden')) ? classListAddHidden('actionBtnHit') : '';
+            (!document.getElementById('actionBtnStand').classList.contains('hidden')) ? classListAddHidden('actionBtnStand') : '';
+            (!document.getElementById('actionBtnDubble').classList.contains('hidden')) ? classListAddHidden('actionBtnDubble') : '';
+            (!document.getElementById('actionBtnSplit').classList.contains('hidden')) ? classListAddHidden('actionBtnSplit') : '';
+            btn.func(deck)
         })
     });
 
@@ -85,4 +86,4 @@ function createdeck() {
     return deck;
 }
 
-export {StartGame};
+export {startGame};

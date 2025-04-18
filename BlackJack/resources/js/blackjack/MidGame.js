@@ -1,141 +1,147 @@
-import { GameEnd } from './EndGame';
-import { CreateElement,PickCard,Getvalue,DisplayTotalValue,ActionBtnSelection, TimeOut } from './helper';
-import { SetHtmlElementContent, ClassListAddHidden, ClassListAddshow } from './PageUI';
-import { UserClass, DealerClass } from "./blackjack";
-async function ActionHit(deck) {
+import { gameEnd } from './endGame';
+import { pickCard,getvalue,displayTotalValue,actionBtnSelection, timeOut } from './helper';
+import { setHtmlElementContent, classListAddShow } from './pageUI';
+import { userClass, dealerClass } from "./blackjack";
+import { updateCredits } from './apiCalls';
+async function actionHit(deck) {
     console.log("Funtion ==> actionhit");
-    let UserObject = UserClass.GetObject();
-    console.log("UserObject ==> ", UserObject);
-    let parentContainer = (UserObject.HtmlElementIdValue == 'UserCardsValue2') ? 'userCardsImageContainer2' : 'userCardsImageContainer';
-    let card = await PickCard(parentContainer,deck);
-    let NextCardsNumber = UserObject.AmouthCards+1
-    let {CardValue , Acount} = Getvalue(card, UserObject.Acount);
-    let NewTotalValue = UserObject.TotalValue + CardValue;
-    UserClass.UpdateObject({
-        TotalValue: NewTotalValue,
-        AmouthCards: NextCardsNumber,
-        Acount: Acount,
-        [`ValueCard${NextCardsNumber}`]: CardValue,
+    let userObject = userClass.getObject();
+    console.log("userObject ==> ", userObject);
+    let parentContainer = (userObject.htmlElementIdValue == 'userCardsValue2') ? 'userCardsImageContainer2' : 'userCardsImageContainer';
+    let card = await pickCard(parentContainer,deck);
+    let nextCardsNumber = userObject.amouthCards+1
+    let {cardValue , aCount} = getvalue(card, userObject.aCount);
+    let newTotalValue = userObject.totalValue + cardValue;
+    userClass.updateObject({
+        totalValue: newTotalValue,
+        amouthCards: nextCardsNumber,
+        aCount: aCount,
+        [`valueCard${nextCardsNumber}`]: cardValue,
     })
-    UserObject = UserClass.GetObject()
-    DisplayTotalValue(UserObject.HtmlElementIdValue, UserObject);
-    if (TotalValueCheck(UserObject,deck)) {
-        ActionBtnSelection();
+    userObject = userClass.getObject()
+    displayTotalValue(userObject.htmlElementIdValue, userObject);
+    if (totalValueCheck(userObject,deck)) {
+        actionBtnSelection();
     }
 }
-async function ActionStand(deck){
-console.log("deck ==> ", deck);
-    console.log("Funtion ==> ActionStand");
-    if (UserClass.SplitCheckFinished()){
+async function actionStand(deck){
+    console.log("Funtion ==> actionStand");
+    if (userClass.splitCheckFinished()){
         spiltSwitch(deck)
-        console.log("spiltSwitch ==> stand", UserClass.SplitCheckFinished);
         return;
     }
-    let UserObject =UserClass.GetObject();
-    console.log("UserObject ==> ", UserObject);
-    if (UserObject.Acount > 0){
-        SetHtmlElementContent(UserObject.HtmlElementIdValue, UserObject.TotalValue);
+    let userObject = userClass.getObject();
+    if (userObject.aCount > 0){
+        setHtmlElementContent(userObject.htmlElementIdValue, userObject.totalValue);
     }
-    let DealerObject = DealerClass.GetObject();
-    while (DealerObject.TotalValue < 17) {
-        let card = await PickCard('DealerCardsImageContainer',deck);
-        let NextCardsNumber = DealerObject.AmouthCards+1
-        let {CardValue , Acount} = Getvalue(card, DealerObject.Acount);
-        let NewTotalValue = DealerObject.TotalValue + CardValue;
-        DealerClass.UpdateObject({
-            TotalValue: NewTotalValue,
-            AmouthCards: NextCardsNumber,
-            Acount: Acount,
-            [`ValueCard${NextCardsNumber}`]: CardValue,
+    let dealerObject = dealerClass.getObject();
+    while (dealerObject.totalValue < 17) {
+        let card = await pickCard('dealerCardsImageContainer',deck);
+        let nextCardsNumber = dealerObject.amouthCards + 1
+        let {cardValue , aCount} = getvalue(card, dealerObject.aCount);
+        let newTotalValue = dealerObject.totalValue + cardValue;
+        dealerClass.updateObject({
+            totalValue: newTotalValue,
+            amouthCards: nextCardsNumber,
+            aCount: aCount,
+            [`ValueCard${nextCardsNumber}`]: cardValue,
         })
-        DealerObject = DealerClass.GetObject()
-        SetHtmlElementContent('DealerCardsValue', DealerObject.TotalValue);
-        await TimeOut()
+        dealerObject = dealerClass.getObject()
+        setHtmlElementContent('dealerCardsValue', dealerObject.totalValue);
+        await timeOut()
     }
-    GameEnd(false,deck);
+    gameEnd(false,deck);
 }
-async function ActionDubble(deck) {
-    console.log("Funtion ==> ActionDubble");
-    let UserObject = UserClass.GetObject();
-    let card = await PickCard('userCardsImageContainer',deck);
-    let NextCardsNumber = UserObject.AmouthCards+1
-    let {CardValue , Acount} = Getvalue(card, UserObject.Acount);
-    let NewTotalValue = UserObject.TotalValue + CardValue;
-    UserClass.UpdateObject({
-        TotalValue: NewTotalValue,
-        AmouthCards: NextCardsNumber,
+async function actionDubble(deck) {
+    console.log("Funtion ==> actionDubble");
+    dubbleBet(true);
+    let userObject = userClass.getObject();
+    let card = await pickCard('userCardsImageContainer',deck);
+    let nextCardsNumber = userObject.amouthCards+1
+    let {cardValue , Acount} = getvalue(card, userObject.Acount);
+    let newTotalValue = userObject.totalValue + cardValue;
+    userClass.updateObject({
+        totalValue: newTotalValue,
+        amouthCards: nextCardsNumber,
         Acount: Acount,
-        [`ValueCard${NextCardsNumber}`]: CardValue,
+        [`ValueCard${nextCardsNumber}`]: cardValue,
     })
-    UserObject = UserClass.GetObject()
-    DisplayTotalValue(UserObject.HtmlElementIdValue, UserObject);
-    // await new Promise((resolve) => setTimeout(resolve, 800));
-    TotalValueCheck(UserObject,deck);
-    ActionStand(deck);
+    userObject = userClass.getObject()
+    displayTotalValue(userObject.htmlElementIdValue, userObject);
+    // await new Promise((resolve) => settimeout(resolve, 800));
+    totalValueCheck(userObject,deck);
+    actionStand(deck);
 }
-async function ActionSplit(deck){
-    console.log('Function ==> ActionSplit')
+async function actionSplit(deck){
+    console.log('Function ==> actionSplit')
     document.getElementById('userCardsImageContainer2').classList.replace('hidden', 'flex');
-    document.getElementById('UserCardsValue2').classList.replace('hidden', 'flex');
-    let SecondCards = document.getElementById('userCardsImageContainer').children[1]
-    SecondCards.classList.remove('absolute','left-3');
-    SecondCards.classList.replace('rotate-355','rotate-345');
-    document.getElementById('userCardsImageContainer2').appendChild(SecondCards);
-    let UserObject = UserClass.GetObject();
-    let Acount = (UserObject.Acount == 2) ? 1 : 0;
-    let UserObject1 = {
+    document.getElementById('userCardsValue2').classList.replace('hidden', 'flex');
+    let secondCards = document.getElementById('userCardsImageContainer').children[1]
+    secondCards.classList.remove('absolute','left-3');
+    secondCards.classList.replace('rotate-355','rotate-345');
+    document.getElementById('userCardsImageContainer2').appendChild(secondCards);
+    let userObject = userClass.getObject();
+    let Acount = (userObject.Acount == 2) ? 1 : 0;
+    let userObject1 = {
         Acount: Acount,
-        AmouthCards: 1,
-        HtmlElementIdValue: 'UserCardsValue',
-        TotalValue: UserObject.ValueCard1,
-        ValueCard1: UserObject.ValueCard1,
+        results: false,
+        amouthCards: 1,
+        htmlElementIdValue: 'UserCardsValue',
+        totalValue: userObject.ValueCard1,
+        ValueCard1: userObject.ValueCard1,
     }
-    let UserObject2 = {
+    let userObject2 = {
         Acount: Acount,
-        AmouthCards: 1,
-        HtmlElementIdValue: 'UserCardsValue2',
-        TotalValue: UserObject.ValueCard2,
-        ValueCard1: UserObject.ValueCard2,
+        amouthCards: 1,
+        htmlElementIdValue: 'userCardsValue2',
+        totalValue: userObject.ValueCard2,
+        ValueCard1: userObject.ValueCard2,
     }
-    SetHtmlElementContent(['UserCardsValue','UserCardsValue2'], UserObject1.TotalValue);
-    ClassListAddshow('ActionBtnHit')
-    ClassListAddshow('ActionBtnStand')
-    UserClass.SplitStart(UserObject1,UserObject2)
-    console.log(UserClass.GetObject())
-    ActionHit(deck);
+    dubbleBet(true);
+    setHtmlElementContent(['userCardsValue','userCardsValue2'], userObject1.totalValue);
+    classListAddShow('actionBtnHit')
+    classListAddShow('actionBtnStand')
+    userClass.splitStart(userObject1,userObject2)
+    actionHit(deck);
+}
+async function dubbleBet(splitCheck){
+    console.log("function ==> dubbleBet", );
+    let userObject = userClass.getObject();
+    let copyedContainer = document.getElementById('userChipBetContainer').cloneNode(true);
+    copyedContainer.id = 'userChipBetContainer2';
+    document.getElementById('userChipBetHeadContainer').appendChild(copyedContainer);
+    document.getElementById('bet').innerHTML = (userObject.bet * 2)
+    let newCredit = userClass.getCredits() - userClass.getUserBet();
+    userClass.saveCredits(newCredit);
+    userClass.updateObject({
+        bet: userObject.bet * 2
+    })
+    
+    await updateCredits(newCredit);
+    userClass.saveCredits(newCredit);
+    document.getElementById('credits').innerHTML = newCredit
 }
 async function spiltSwitch(deck){
-console.log("function ==> spiltSwitch");
-    UserClass.SplitSwitch();
-    ActionHit(deck);
+    console.log("function ==> spiltSwitch");
+    userClass.splitSwitch();
+    actionHit(deck);
 }
-function TotalValueCheck(Object,deck){
+function totalValueCheck(object,deck){
     console.log("function => TotValueCheck")
-    if(Object.TotalValue > 21) {
-        if (Object.Acount > 0){
-            Object.Acount--
-            Object.TotalValue -= 10
-            console.log("Object ==> ", Object);
-            SetHtmlElementContent(Object.HtmlElementIdValue, Object.TotalValue);
+    if(object.totalValue > 21) {
+        if (object.aCount > 0){
+            object.aCount--
+            object.totalValue -= 10
+            setHtmlElementContent(object.htmlElementIdValue, object.totalValue);
             return true;
         }
-        GameEnd(false,deck)
-        console.log("return ==> ", 'false');
+        gameEnd(false,deck)
         return false;
-    } else if(Object.TotalValue == 21){
-        GameEnd(false,deck)
-        console.log("return ==> ", "false");
+    } else if(object.totalValue == 21){
+        gameEnd(false,deck)
         return false;
     } else{
-        console.log("return ==> ", "true");
         return true;
     }
 }
-export { ActionHit, ActionStand, ActionSplit, ActionDubble}
-
-
-
-
-
-
-export { CreateElement, spiltSwitch };
+export { spiltSwitch, actionHit, actionStand, actionSplit, actionDubble };

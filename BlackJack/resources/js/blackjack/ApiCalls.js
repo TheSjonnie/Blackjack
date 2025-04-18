@@ -13,7 +13,7 @@ async function getCredits() {
         console.error(err);
     }
 }
-async function updateCredits(Credits) {
+async function updateCredits(credits) {
     try {
         const response = await fetch('/updateCredits', {
             method: 'POST',
@@ -21,7 +21,7 @@ async function updateCredits(Credits) {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
-            body: JSON.stringify(Credits)
+            body: JSON.stringify(credits)
         });
         const data = await response.json();
         console.log(data);
@@ -29,7 +29,7 @@ async function updateCredits(Credits) {
         console.error(err);
     }
 }
-async function updateProfile(Credits) {
+async function updateProfile(credits) {
     try {
         const response = await fetch('/updateProfile', {
             method: 'POST',
@@ -37,7 +37,7 @@ async function updateProfile(Credits) {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
-            body: JSON.stringify(Credits)
+            body: JSON.stringify(credits)
         });
         const data = await response.json();
         console.log(data);
