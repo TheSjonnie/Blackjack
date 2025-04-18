@@ -67,6 +67,6 @@
         </div>
     </div>
     @section('scripts')
-        <script src="{{ asset('js/blackjack/blackjack.js') }}"></script>
-    @endsection
+    @vite(['resources/js/blackjack/blackjack.js'])
+@endsection
 </x-app-layout>
