@@ -5,7 +5,6 @@ import { spiltSwitch } from "./midGame";
 import { updateProfile } from "./apiCalls";
 async function gameEnd(Blackjack,deck){
     console.log("function ==> gameEnd" );
-    console.log("🚀 ~ gameEnd ~ userClass.splitCheck():", userClass.splitCheck())
     if (userClass.splitCheck()){
         if (userClass.splitCheckFinished()){
             spiltSwitch(deck)
@@ -20,9 +19,7 @@ async function gameEnd(Blackjack,deck){
             let credits = userClass.getCredits();
             let {won1,lost1,result: result1,newCredit} = resultsValidation(Blackjack, userObject1.totalValue, dealerObject.totalValue, credits)
             let userObject2 = userClass.getObject2();
-            console.log("🚀 ~ gameEnd ~ result1:", result1)
             let {won2,lost2,result: result2,newCredit: finalCredit} = resultsValidation(Blackjack, userObject2.totalValue, dealerObject.totalValue, newCredit)
-            console.log("🚀 ~ gameEnd ~ result2:", result2)
             setHtmlElementContent('gameResults', result1);
             setHtmlElementContent('gameResults2', result2);
             timeOut();
@@ -36,10 +33,10 @@ async function gameEnd(Blackjack,deck){
             await updateProfile(data);
             
         }
+    } else{
         let userObject = userClass.getObject();
         let dealerObject = dealerClass.getObject();
         let {won,lost,result,newCredit} = resultsValidation(Blackjack, userObject.totalValue, dealerObject.totalValue, userClass.getCredits())
-        console.log({won,lost,result,newCredit})
         setHtmlElementContent('gameResults', result);
         timeOut();
         let data = {
@@ -84,7 +81,6 @@ function resultsValidation(Blackjack,userTotalValue, dealerTotalValue, newCredit
         won = true
         newCredit += userClass.getUserBet() * 2; 
     }
-    console.log("🚀 ~ resultsValidation ~ result:", result)
     return {won,lost,result,newCredit}
 }
 export {gameEnd}

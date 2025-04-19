@@ -1,5 +1,5 @@
 import { userClass } from './blackjack.js';
-import { createElementFuntion } from './helper.js';
+import { createElementFunction } from './helper.js';
 
 document.addEventListener("DOMContentLoaded", function () {
     setEventListenersToChips();
@@ -25,17 +25,27 @@ function handleChipClick(value, imgPath) {
         return;
     }
     creditElement.innerHTML -= parseInt(value);
-    console.log("number ==> ", number);
-    console.log("getCredits ==> ", userClass.getCredits());
-
     userClass.saveUserBet(number);
     betElement.innerHTML = number;
     const parentElement = document.getElementById('userChipBetContainer');
-    const classNameFirst = `ChipImgSize`;
-    const classNameOther = `ChipImgSize absolute top-${Math.floor(Math.random() * 6)} left-${Math.floor(Math.random() * 6)} transform rotate-${Math.floor(Math.random() * 80) / 10}`;
-    const className = (parentElement.childElementCount == 0) ? classNameFirst : classNameOther;
+    let top = Math.floor(Math.random() * 6)
+    let left = Math.floor(Math.random() * 6) 
+    let rotate = Math.floor(Math.random() * 80) / 10
     const alt = `Value ${value} Chip`;
-    createElementFuntion('img', className, alt, imgPath, parentElement);
+    createElementFunction({
+        type: "img",
+        className: "ChipImgSize",
+        alt: alt,
+        src: imgPath,
+        parentElement: parentElement,
+        styles: {
+            position: (parentElement.childElementCount == 0) ? 'relative' : 'absolute',
+            top: top,
+            left: left,
+            rotate: rotate
+        },
+    }
+    );
 }
 function setHtmlElementContent(htmlElementId, content) {
     if (!htmlElementId) {

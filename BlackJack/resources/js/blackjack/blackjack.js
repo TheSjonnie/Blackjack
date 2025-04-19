@@ -8,8 +8,6 @@ async function setupGame() {
     try {
         userClass = new User(await getCredits());
         dealerClass = new Dealer();
-        console.log("UserClass ==> ", userClass);
-        console.log("dealerClass ==> ", dealerClass);
         return;
     } catch (err) {
         console.error(err);

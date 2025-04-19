@@ -7,26 +7,31 @@ async function getCredits() {
             }
         });
         const data = await response.json();
-        console.log("data ==> ", data.Credits);
-        return data.Credits;
+        if (!data) {
+            throw new Error("data not definend");
+        }
+        return data.credits;
     } catch (err) {
         console.error(err);
     }
 }
 async function updateCredits(credits) {
-    try {
-        const response = await fetch('/updateCredits', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify(credits)
-        });
-        const data = await response.json();
-        console.log(data);
-    } catch (err) {
-        console.error(err);
+    if (credits){
+        try {
+            const response = await fetch('/updateCredits', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(credits)
+            });
+            const data = await response.json();
+        } catch (err) {
+            console.error(err);
+        }
+    } else{
+        console.error('credits not defind fetch updateCredits')
     }
 }
 async function updateProfile(credits) {
@@ -40,7 +45,6 @@ async function updateProfile(credits) {
             body: JSON.stringify(credits)
         });
         const data = await response.json();
-        console.log(data);
     } catch (err) {
         console.error(err);
     }

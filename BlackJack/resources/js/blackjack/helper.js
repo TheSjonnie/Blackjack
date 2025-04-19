@@ -1,40 +1,51 @@
 import cardsImageClasses from "../data/cardsImageClasses.json";
 import { setHtmlElementContent, classListAddShow } from "./pageUI";
 import { userClass, dealerClass } from "./blackjack";
-function createElementFuntion(element, className, alt, src, parentElement) {
-console.log("parentElement ==> ", parentElement);
-    let createdElement = document.createElement(element);
-    createdElement.setAttribute("src", src);
-    createdElement.setAttribute("class", className);
-    createdElement.alt = alt;
-    parentElement.appendChild(createdElement);
+function createElementFunction(object) {
+console.log("function ==> createElementFunction");
+    let createdElement = document.createElement(object.type);
+    if (object.styles){
+        Object.entries(object.styles).forEach(([property, value]) => {
+            if (property == 'position'){
+                createdElement.classList.add(value);
+            } else{
+                createdElement.classList.add(`${property}-${value}`);
+            }
+        })
+    }
+    if (object.src) createdElement.setAttribute("src", object.src);
+    if (object.className) createdElement.classList.add(object.className);
+    if (object.alt) createdElement.alt = object.alt;
+    object.parentElement.appendChild(createdElement);
     return createdElement;
 }
 async function pickCard(parentContainerName, deck) {
-console.log("parentContainerName ==> ", parentContainerName);
     console.log("function ==> pickCard");
     let card = deck[Math.floor(Math.random() * 52)];
     const parentElement = document.getElementById(parentContainerName);
     let dealerObject = dealerClass.getObject();
-    console.log("dealerobject ==> ", dealerObject);
-    let childsInparentElement;
     let blankcard;
     if (parentContainerName == "dealerCardsImageContainer" && dealerObject && dealerObject.amouthCards == 1) {
         blankcard = document.getElementById("dealerCardsImageContainer").children[1];
         blankcard.alt = card
     } else {
-        childsInparentElement = parentElement.childElementCount;
+        const childsInparentElement = parentElement.childElementCount;
         let left = cardsImageClasses[childsInparentElement]["left"];
         let rotate = cardsImageClasses[childsInparentElement]["rotate"];
         let position = cardsImageClasses[childsInparentElement]["position"];
-        const className = `CardsImgSize ${position} left-${left} rotate-${rotate}`;
         const alt = `${card} Image`;
-        blankcard = createElementFuntion(
-            "img",
-            className,
-            alt,
-            "http://127.0.0.1:8000/image/DeckCards/back_light.png",
-            parentElement
+        blankcard = createElementFunction({
+            type: "img",
+            className: 'CardsImgSize',
+            alt: alt,
+            src: "http://127.0.0.1:8000/image/DeckCards/back_light.png",
+            parentElement: parentElement,
+            styles: {
+                position: position,
+                left: left,
+                rotate: rotate
+            },
+        }
         );
         await timeOut();
     }
@@ -65,7 +76,6 @@ function actionBtnSelection() {
     let actionBtnStandShow = false;
     let actionBtnDubbleShow = true;
     let actionBtnSplitShow = true;
-    console.log("UsercardValue ==> ", userObject ? userObject : "not difend");
     if (!userObject.valueCard3) {
         if (userObject.valueCard1 === userObject.valueCard2) {
             actionBtnHitShow = true;
@@ -100,8 +110,7 @@ function actionBtnSelection() {
     actionBtnSplitShow ? classListAddShow("actionBtnSplit") : "";
 }
 function displayTotalValue(htmlElementId, object) {
-console.log("object ==> ", object);
-console.log("htmlElementId ==> ", htmlElementId);
+console.log("function ==> displayTotalValue", );
     let htmlDisplay;
     if (object.Acount > 0) {
         htmlDisplay = `${object.totalValue - 10}/${object.totalValue}`;
@@ -112,7 +121,7 @@ console.log("htmlElementId ==> ", htmlElementId);
 }
 
 export {
-    createElementFuntion,
+    createElementFunction,
     actionBtnSelection,
     displayTotalValue,
     pickCard,

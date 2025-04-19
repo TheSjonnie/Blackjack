@@ -6,7 +6,6 @@ import { updateCredits } from './apiCalls';
 async function actionHit(deck) {
     console.log("Funtion ==> actionhit");
     let userObject = userClass.getObject();
-    console.log("userObject ==> ", userObject);
     let parentContainer = (userObject.htmlElementIdValue == 'userCardsValue2') ? 'userCardsImageContainer2' : 'userCardsImageContainer';
     let card = await pickCard(parentContainer,deck);
     let nextCardsNumber = userObject.amouthCards+1
@@ -19,7 +18,6 @@ async function actionHit(deck) {
         [`valueCard${nextCardsNumber}`]: cardValue,
     })
     userObject = userClass.getObject()
-    console.log("🚀 ~ actionHit ~ userObject:", userObject)
     displayTotalValue(userObject.htmlElementIdValue, userObject);
     if (totalValueCheck(userObject,deck)) {
         actionBtnSelection();

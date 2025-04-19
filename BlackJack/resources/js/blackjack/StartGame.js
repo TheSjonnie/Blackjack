@@ -1,5 +1,5 @@
 import { classListAddHidden,  } from "./pageUI";
-import { pickCard, timeOut, getvalue, displayTotalValue, actionBtnSelection, createElementFuntion } from "./helper";
+import { pickCard, timeOut, getvalue, displayTotalValue, actionBtnSelection, createElementFunction } from "./helper";
 import { gameEnd } from "./endGame";
 import { actionHit,actionStand,actionDubble,actionSplit } from "./midGame";
 import { userClass, dealerClass,setEventlistenerToStartBtn } from "./blackjack";
@@ -25,12 +25,19 @@ async function startGame() {
 
     let usercard2 = await pickCard('userCardsImageContainer',deck);
     await timeOut();
-    createElementFuntion(
-        "img",
-        `CardsImgSize absolute left-3 rotate-355`,
-        'blank card',
-        "http://127.0.0.1:8000/image/DeckCards/back_light.png",
-        document.getElementById('dealerCardsImageContainer')
+    createElementFunction({
+        type: "img",
+        className: "CardsImgSize",
+        alt: 'blank card',
+        src: "http://127.0.0.1:8000/image/DeckCards/back_light.png",
+        parentElement: document.getElementById('dealerCardsImageContainer'),
+        styles: {
+            position: "absolute",
+            left: 3,
+            rotate: 355
+        },
+        category: "cards"
+    }
     );
     // let Dealercard2 = await pickCard('DealerCardsImageContainer', deck);
 
@@ -40,9 +47,8 @@ async function startGame() {
     let { cardValue: userCardValue2, aCount: userACardsNumber2 } = getvalue(usercard2, 0);
 
     let userObject = userClass.createObject(userCardValue1,userCardValue2,userACardsNumber1,userACardsNumber2);
-    console.log("userObject ==> ", userObject);
-
     let dealerObject = dealerClass.createObject(dealerCardValue1,dealerACardsNumber1);
+
     if (dealerObject.totalValue == 21){
         gameEnd(true);
         return
@@ -57,6 +63,7 @@ async function startGame() {
     actionBtnSelection(userObject)
 }
 function addEventListenerToActionBtn(deck) {
+    console.log("function ==> addEventListenerToActionBtn" );
     let btns = [
         { id: 'actionBtnHit', func: actionHit },
         { id: 'actionBtnStand', func: actionStand },
@@ -75,6 +82,7 @@ function addEventListenerToActionBtn(deck) {
 
 }
 function createdeck() {
+    console.log("function ==> createdeck", );
     let deck = [];
     let suits = ['clubs', 'diamonds', 'hearts', 'spades'];
     let ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
