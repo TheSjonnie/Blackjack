@@ -17,4 +17,4 @@
     2. tests schrijven voor de frontend en backend
   
 # Ideas
-    1. 
+    1. een report knop waar je een ticket kan maken voor als er een bug was in de game en dan kan je vanuit een admin panel de game met de kaarten checken en als het klopt kan speler credits terug krijgen
