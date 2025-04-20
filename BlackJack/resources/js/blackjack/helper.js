@@ -66,7 +66,7 @@ function getvalue(card, aCount) {
     return { cardValue, aCount };
 }
 async function timeOut() {
-    await new Promise((resolve) => setTimeout(resolve, 8));
+    await new Promise((resolve) => setTimeout(resolve, 800));
     return;
 }
 function actionBtnSelection() {
@@ -74,8 +74,8 @@ function actionBtnSelection() {
     let userObject = userClass.getObject();
     let actionBtnHitShow = false;
     let actionBtnStandShow = false;
-    let actionBtnDubbleShow = true;
-    let actionBtnSplitShow = true;
+    let actionBtnDubbleShow = false;
+    let actionBtnSplitShow = false;
     if (!userObject.valueCard3) {
         if (userObject.valueCard1 === userObject.valueCard2) {
             actionBtnHitShow = true;
@@ -112,7 +112,7 @@ function actionBtnSelection() {
 function displayTotalValue(htmlElementId, object) {
 console.log("function ==> displayTotalValue", );
     let htmlDisplay;
-    if (object.Acount > 0) {
+    if (object.aCount > 0) {
         htmlDisplay = `${object.totalValue - 10}/${object.totalValue}`;
     } else {
         htmlDisplay = object.totalValue;

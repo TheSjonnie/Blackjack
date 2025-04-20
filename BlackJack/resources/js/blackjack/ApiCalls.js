@@ -44,7 +44,8 @@ async function updateProfile(credits) {
             },
             body: JSON.stringify(credits)
         });
-        const data = await response.json();
+        const data = await response.text();
+        console.log(data);
     } catch (err) {
         console.error(err);
     }
