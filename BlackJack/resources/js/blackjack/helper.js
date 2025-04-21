@@ -66,7 +66,7 @@ function getvalue(card, aCount) {
     return { cardValue, aCount };
 }
 async function timeOut() {
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    await new Promise((resolve) => setTimeout(resolve, 8));
     return;
 }
 function actionBtnSelection() {
@@ -112,7 +112,7 @@ function actionBtnSelection() {
 function displayTotalValue(htmlElementId, object) {
 console.log("function ==> displayTotalValue", );
     let htmlDisplay;
-    if (object.aCount > 0) {
+    if (object.aCount > 0 && object.totalValue < 21) {
         htmlDisplay = `${object.totalValue - 10}/${object.totalValue}`;
     } else {
         htmlDisplay = object.totalValue;
