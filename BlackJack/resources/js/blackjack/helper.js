@@ -66,7 +66,7 @@ function getvalue(card, aCount) {
     return { cardValue, aCount };
 }
 async function timeOut() {
-    await new Promise((resolve) => setTimeout(resolve, 8));
+    await new Promise((resolve) => setTimeout(resolve, 800));
     return;
 }
 function actionBtnSelection() {
