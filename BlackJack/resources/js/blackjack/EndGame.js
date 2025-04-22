@@ -26,8 +26,8 @@ async function gameEnd(Blackjack,deck){
             let data = {
                 profileUpdates: {
                     credits: finalCredit,
-                    Gameswon: won1,
-                    Gameslost: lost1,
+                    gamesWon: won1,
+                    gamesLost: lost1,
                 }
             }
             await updateProfile(data);
@@ -42,14 +42,13 @@ async function gameEnd(Blackjack,deck){
         let data = {
             profileUpdates: {
                 credits: newCredit,
-                Gameswon: won,
-                Gameslost: lost,
+                gamesWon: won,
+                gamesLost: lost,
             }
         }
         await updateProfile(data);
     }
 
-    // window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
 }
 function resultsValidation(Blackjack,userTotalValue, dealerTotalValue, newCredit){
     let won = false

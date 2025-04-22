@@ -74,8 +74,8 @@ function actionBtnSelection() {
     let userObject = userClass.getObject();
     let actionBtnHitShow = false;
     let actionBtnStandShow = false;
-    let actionBtnDubbleShow = true;
-    let actionBtnSplitShow = true;
+    let actionBtnDubbleShow = false;
+    let actionBtnSplitShow = false;
     if (!userObject.valueCard3) {
         if (userObject.valueCard1 === userObject.valueCard2) {
             actionBtnHitShow = true;
@@ -112,7 +112,7 @@ function actionBtnSelection() {
 function displayTotalValue(htmlElementId, object) {
 console.log("function ==> displayTotalValue", );
     let htmlDisplay;
-    if (object.Acount > 0) {
+    if (object.aCount > 0 && object.totalValue < 21) {
         htmlDisplay = `${object.totalValue - 10}/${object.totalValue}`;
     } else {
         htmlDisplay = object.totalValue;

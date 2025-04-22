@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
+<head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -13,14 +13,14 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @stack('scripts')
-    </head>
+</head>
     <body class="bg-green-900">
         <header>
             <x-navbar />
-        </header>
+</header>
         <main>
             {{$slot}}
         </main>
         <footer></footer>
-    </body>
+</body>
 </html>

@@ -44,7 +44,13 @@ async function updateProfile(credits) {
             },
             body: JSON.stringify(credits)
         });
-        const data = await response.json();
+        const data = await response.text();
+        console.log(data);
+        if (data == 'succes') {
+            window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
+        } else{
+            console.error(data);
+        }
     } catch (err) {
         console.error(err);
     }
