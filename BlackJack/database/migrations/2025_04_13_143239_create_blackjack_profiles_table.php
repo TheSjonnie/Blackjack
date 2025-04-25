@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('blackjack_profiles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('UserId');
-            $table->unsignedBigInteger('credits');
-            $table->unsignedBigInteger('GamesPlayed');
-            $table->unsignedBigInteger('GamesWon');
-            $table->unsignedBigInteger('GamesLost');
+            $table->unsignedBigInteger('userId');
+            $table->unsignedBigInteger('credits')->default(1000);
+            $table->unsignedBigInteger('gamesPlayed')->default(0);
+            $table->unsignedBigInteger('gamesWon')->default(0);
+            $table->unsignedBigInteger('gamesLost')->default(0);
+            $table->unsignedBigInteger('gamesDraw')->default(0);
             $table->timestamps();
         });
     }

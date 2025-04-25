@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class blackjackProfile extends Model
+class BlackjackProfile extends Model
 {
     /** @use HasFactory<\Database\Factories\BlackjackProfilesFactory> */
     use HasFactory;
     protected $fillable = [
         'UserId',
         'credits',
-        'GamesPlayed',
-        'GamesWon',
-        'GamesLost'
+        'gamesPlayed',
+        'gamesWon',
+        'gamesLost',
+        'gamesDraw'
     ];
     public function User() {
         return $this->belongsTo(User::class);
