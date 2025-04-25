@@ -17,9 +17,9 @@ async function gameEnd(Blackjack,deck){
             let userObject1 = userClass.getObject1();
             let dealerObject = dealerClass.getObject();
             let credits = userClass.getCredits();
-            let {won1,lost1,result: result1,newCredit} = resultsValidation(Blackjack, userObject1.totalValue, dealerObject.totalValue, credits)
+            let {won: won1,lost: lost1,draw: draw, result: result1,newCredit} = resultsValidation(Blackjack, userObject1.totalValue, dealerObject.totalValue, credits)
             let userObject2 = userClass.getObject2();
-            let {won2,lost2,result: result2,newCredit: finalCredit} = resultsValidation(Blackjack, userObject2.totalValue, dealerObject.totalValue, newCredit)
+            let {won: won2,lost: lost2,draw: draw2,result: result2,newCredit: finalCredit} = resultsValidation(Blackjack, userObject2.totalValue, dealerObject.totalValue, newCredit)
             setHtmlElementContent('gameResults', result1);
             setHtmlElementContent('gameResults2', result2);
             timeOut();
@@ -28,6 +28,7 @@ async function gameEnd(Blackjack,deck){
                     credits: finalCredit,
                     gamesWon: won1,
                     gamesLost: lost1,
+                    gamesDraw: draw
                 }
             }
             await updateProfile(data);
@@ -36,7 +37,7 @@ async function gameEnd(Blackjack,deck){
     } else{
         let userObject = userClass.getObject();
         let dealerObject = dealerClass.getObject();
-        let {won,lost,result,newCredit} = resultsValidation(Blackjack, userObject.totalValue, dealerObject.totalValue, userClass.getCredits())
+        let {won,lost,draw,result,newCredit} = resultsValidation(Blackjack, userObject.totalValue, dealerObject.totalValue, userClass.getCredits())
         setHtmlElementContent('gameResults', result);
         timeOut();
         let data = {
@@ -44,6 +45,7 @@ async function gameEnd(Blackjack,deck){
                 credits: newCredit,
                 gamesWon: won,
                 gamesLost: lost,
+                gamesDraw: draw
             }
         }
         await updateProfile(data);
@@ -53,6 +55,7 @@ async function gameEnd(Blackjack,deck){
 function resultsValidation(Blackjack,userTotalValue, dealerTotalValue, newCredit){
     let won = false
     let lost = false
+    let draw = false
     let result;
     if(Blackjack){
         if (userTotalValue == 21){
@@ -74,12 +77,13 @@ function resultsValidation(Blackjack,userTotalValue, dealerTotalValue, newCredit
         lost = true
     } else if (dealerTotalValue == userTotalValue){
         result = "Draw";
+        draw = true
         newCredit += userClass.getUserBet(); 
     } else{
         result = "you won";
         won = true
         newCredit += userClass.getUserBet() * 2; 
     }
-    return {won,lost,result,newCredit}
+    return {won,lost,draw,result,newCredit}
 }
 export {gameEnd}

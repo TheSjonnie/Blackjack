@@ -1,7 +1,7 @@
 import { classListAddHidden,  } from "./pageUI";
 import { pickCard, timeOut, getvalue, displayTotalValue, actionBtnSelection, createElementFunction } from "./helper";
 import { gameEnd } from "./endGame";
-import { actionHit,actionStand,actionDubble,actionSplit } from "./midGame";
+import { actionHit,actionStand,actionDubble,actionSplit, totalValueCheck } from "./midGame";
 import { userClass, dealerClass,setEventlistenerToStartBtn } from "./blackjack";
 import { updateCredits } from './apiCalls';
 async function startGame() {
@@ -39,25 +39,24 @@ async function startGame() {
         category: "cards"
     }
     );
-    // let Dealercard2 = await pickCard('DealerCardsImageContainer', deck);
-
-    // let { cardValue: DealercardValue2, Acount: DealerACardsNumber2 } = getvalue(Dealercard2, 0);
     let { cardValue: dealerCardValue1, aCount: dealerACardsNumber1 } = getvalue(dealercard1, 0);
     let { cardValue: userCardValue1, aCount: userACardsNumber1 } = getvalue(usercard1, 0);
     let { cardValue: userCardValue2, aCount: userACardsNumber2 } = getvalue(usercard2, 0);
 
     let userObject = userClass.createObject(userCardValue1,userCardValue2,userACardsNumber1,userACardsNumber2);
+    console.log("🚀 ~ startGame ~ userObject:", userObject)
     let dealerObject = dealerClass.createObject(dealerCardValue1,dealerACardsNumber1);
 
     if (dealerObject.totalValue == 21){
         gameEnd(true);
         return
-    } else if (userObject.totalValue ==21){
+    } else if (userObject.totalValue == 21){
         gameEnd(true)
         return
     }
 
     addEventListenerToActionBtn(deck);
+    totalValueCheck(userObject, deck)
     displayTotalValue('dealerCardsValue', dealerObject)
     displayTotalValue('userCardsValue', userObject);
     actionBtnSelection(userObject)
@@ -85,8 +84,10 @@ function createdeck() {
     console.log("function ==> createdeck", );
     let deck = [];
     let suits = ['clubs', 'diamonds', 'hearts', 'spades'];
-    let ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    // let ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
     // let ranks = ['10', 'J', 'Q', 'K', 'A','A','A','A','A','A','A','A','A']; // voor het testen met A
+    // let ranks = ['10', 'J', 'Q', 'K', '10','J','Q','K','10','J','Q','K','10']; // voor het testen met split
+    let ranks = ['2', '3', '4', '5', 'A','A','A','A','A','A','A','A','A']; // voor het testen met A
     suits.forEach((type) => {
         ranks.forEach((number) => {
             deck.push(`${type}_${number}`);

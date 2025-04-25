@@ -66,20 +66,16 @@ function getvalue(card, aCount) {
     return { cardValue, aCount };
 }
 async function timeOut() {
-    await new Promise((resolve) => setTimeout(resolve, 8));
+    await new Promise((resolve) => setTimeout(resolve, 800));
     return;
 }
 function actionBtnSelection() {
     console.log("function ==> ", "actionBtnSelection");
     let userObject = userClass.getObject();
-    let actionBtnHitShow = false;
-    let actionBtnStandShow = false;
     let actionBtnDubbleShow = false;
     let actionBtnSplitShow = false;
-    if (!userObject.valueCard3) {
+    if (!userClass.splitCheck() && !userObject.valueCard3) {
         if (userObject.valueCard1 === userObject.valueCard2) {
-            actionBtnHitShow = true;
-            actionBtnStandShow = true;
             actionBtnSplitShow = true;
             if (
                 userObject.TotalValue === 9 ||
@@ -88,31 +84,20 @@ function actionBtnSelection() {
             ) {
                 actionBtnDubbleShow = true;
             }
-        } else if (
-            userObject.TotalValue === 9 ||
-            userObject.TotalValue === 10 ||
-            userObject.TotalValue === 11
-        ) {
-            actionBtnHitShow = true;
-            actionBtnStandShow = true;
+        } else if (userObject.TotalValue === 9 ||userObject.TotalValue === 10 ||userObject.TotalValue === 11) {
             actionBtnDubbleShow = true;
-        } else {
-            actionBtnHitShow = true;
-            actionBtnStandShow = true;
         }
-    } else {
-        actionBtnHitShow = true;
-        actionBtnStandShow = true;
     }
-    actionBtnHitShow ? classListAddShow("actionBtnHit") : "";
-    actionBtnStandShow ? classListAddShow("actionBtnStand") : "";
+    classListAddShow("actionBtnHit");
+    classListAddShow("actionBtnStand");
     actionBtnDubbleShow ? classListAddShow("actionBtnDubble") : "";
     actionBtnSplitShow ? classListAddShow("actionBtnSplit") : "";
 }
 function displayTotalValue(htmlElementId, object) {
-console.log("function ==> displayTotalValue", );
+    console.log("🚀 ~ displayTotalValue ~ object:", object)
+    console.log("function ==> displayTotalValue", );
     let htmlDisplay;
-    if (object.aCount > 0 && object.totalValue < 21) {
+    if (object.aCount > 0 && object.totalValue < 21 && object.totalValue != 11) {
         htmlDisplay = `${object.totalValue - 10}/${object.totalValue}`;
     } else {
         htmlDisplay = object.totalValue;

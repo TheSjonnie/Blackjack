@@ -34,7 +34,7 @@ async function updateCredits(credits) {
         console.error('credits not defind fetch updateCredits')
     }
 }
-async function updateProfile(credits) {
+async function updateProfile(data) {
     try {
         const response = await fetch('/updateProfile', {
             method: 'POST',
@@ -42,14 +42,13 @@ async function updateProfile(credits) {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
-            body: JSON.stringify(credits)
+            body: JSON.stringify(data)
         });
-        const data = await response.text();
-        console.log(data);
-        if (data == 'succes') {
-            window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
+        const responseData = await response.text();
+        if (responseData == 'succes') {
+            // window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
         } else{
-            console.error(data);
+            console.error(responseData);
         }
     } catch (err) {
         console.error(err);

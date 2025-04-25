@@ -25,9 +25,10 @@ class BlackjackProfileService
             $data = $this->getProfile($userId);
             BlackjackProfile::find($userId)->update([
                 'credits'     => $request->profileUpdates['credits'],
-                'gamesPlayed' => $data->GamesPlayed + 1,
-                'gamesWon'    => $data->GamesWon + ($request->profileUpdates['gamesWon'] ? 1 : 0),
-                'gamesLost'   => $data->GamesLost + ($request->profileUpdates['gamesLost'] ? 1 : 0),
+                'gamesPlayed' => $data->gamesPlayed + 1,
+                'gamesWon'    => $data->gamesWon + ($request->profileUpdates['gamesWon'] ? 1 : 0),
+                'gamesLost'   => $data->gamesLost + ($request->profileUpdates['gamesLost'] ? 1 : 0),
+                'gamesDraw'   => $data->gamesDraw + ($request->profileUpdates['gamesDraw'] ? 1 : 0),
             ]);
             return 'succes';
         } catch (\Throwable $e) {

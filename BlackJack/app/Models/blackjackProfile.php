@@ -10,7 +10,7 @@ class BlackjackProfile extends Model
     /** @use HasFactory<\Database\Factories\BlackjackProfilesFactory> */
     use HasFactory;
     protected $fillable = [
-        'UserId',
+        'userId',
         'credits',
         'gamesPlayed',
         'gamesWon',

@@ -15,8 +15,8 @@
                     Game</button>
             </div>
             <div class="container text-center flex flex-row justify-center gap-30">
-                <p class="text-7xl text-white" id="gameResults"></p>
                 <p class="text-7xl text-white" id="gameResults2"></p>
+                <p class="text-7xl text-white" id="gameResults"></p>
 
             </div>
             <div class="container flex justify-center my-9 flex-col gap-8">

@@ -46,7 +46,8 @@ async function actionStand(deck){
             [`ValueCard${nextCardsNumber}`]: cardValue,
         })
         dealerObject = dealerClass.getObject()
-        setHtmlElementContent('dealerCardsValue', dealerObject.totalValue);
+        totalValueCheck(dealerObject, deck)
+        displayTotalValue(dealerObject.htmlElementIdValue, dealerObject);
         await timeOut()
     }
     gameEnd(false,deck);
@@ -144,4 +145,4 @@ function totalValueCheck(object,deck){
         return true;
     }
 }
-export { spiltSwitch, actionHit, actionStand, actionSplit, actionDubble };
+export { spiltSwitch, actionHit, actionStand, actionSplit, actionDubble, totalValueCheck};
