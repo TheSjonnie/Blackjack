@@ -102,10 +102,10 @@ async function actionSplit(deck){
     }
     dubbleBet(true);
     setHtmlElementContent(['userCardsValue','userCardsValue2'], userObject1.totalValue);
+    userClass.splitStart(userObject1,userObject2)
+    await actionHit(deck);
     classListAddShow('actionBtnHit')
     classListAddShow('actionBtnStand')
-    userClass.splitStart(userObject1,userObject2)
-    actionHit(deck);
 }
 async function dubbleBet(splitCheck){
     console.log("function ==> dubbleBet", );

@@ -12,8 +12,8 @@
     1.     gaan begrijpen en beter snappen hoe het werkt met die eventlisterens providers enzo veral rond die registered en dat beter documenteren
     2. de A fixen rond om de Dealer
     3. de bet fixen rond om de split funtions
+    4. de front end fixen overal
 # bugs
-    1. als ik 2 A pak en dan stand gaat die van 22 uit niet van 12
     2. tests schrijven voor de frontend en backend
   
 # Ideas
