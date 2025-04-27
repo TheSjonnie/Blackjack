@@ -24,6 +24,7 @@ async function actionHit(deck) {
     }
 }
 async function actionStand(deck){
+    console.log('userObject ==> ', userClass.getObject())
     console.log("Funtion ==> actionStand");
     if (userClass.splitCheckFinished()){
         spiltSwitch(deck)
@@ -82,7 +83,8 @@ async function actionSplit(deck){
     secondCards.classList.replace('rotate-355','rotate-345');
     document.getElementById('userCardsImageContainer2').appendChild(secondCards);
     let userObject = userClass.getObject();
-    let aCount = (userObject.aCount == 2) ? 1 : 0;
+    console.log("🚀 ~ actionSplit ~ userObject:", userObject)
+    let aCount = (userObject.aCount == 1) ? 1 : 0;
     let userObject1 = {
         aCount: aCount,
         results: false,

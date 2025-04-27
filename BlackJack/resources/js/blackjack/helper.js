@@ -94,11 +94,14 @@ function actionBtnSelection() {
     actionBtnSplitShow ? classListAddShow("actionBtnSplit") : "";
 }
 function displayTotalValue(htmlElementId, object) {
-    console.log("🚀 ~ displayTotalValue ~ object:", object)
     console.log("function ==> displayTotalValue", );
     let htmlDisplay;
     if (object.aCount > 0 && object.totalValue < 21 && object.totalValue != 11) {
-        htmlDisplay = `${object.totalValue - 10}/${object.totalValue}`;
+        if (htmlElementId == "dealerCardsValue" && object.totalValue > 17){
+
+        } else{
+            htmlDisplay = `${object.totalValue - 10}/${object.totalValue}`;
+        }
     } else {
         htmlDisplay = object.totalValue;
     }
