@@ -84,9 +84,9 @@ function createdeck() {
     console.log("function ==> createdeck", );
     let deck = [];
     let suits = ['clubs', 'diamonds', 'hearts', 'spades'];
-    // let ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    let ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
     // let ranks = ['10', 'J', 'Q', 'K', 'A','A','A','A','A','A','A','A','A']; // voor het testen met A
-    let ranks = ['10', 'J', 'Q', 'K', '10','J','Q','K','10','J','Q','K','10']; // voor het testen met split
+    // let ranks = ['10', 'J', 'Q', 'K', '10','J','Q','K','10','J','Q','K','10']; // voor het testen met split
     // let ranks = ['2', '3', '4', '5', 'A','A','A','A','A','A','A','A','A']; // voor het testen met A
     suits.forEach((type) => {
         ranks.forEach((number) => {

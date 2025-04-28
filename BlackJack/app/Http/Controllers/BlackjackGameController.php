@@ -18,7 +18,7 @@ class BlackjackGameController extends Controller
     public function index(Request $request) {
         // dd($requst, 'hoi');
         $profile = $this->profileService->getProfile(Auth::id());
-        return view('blackjack.blackjack-game')->with('profile', $profile);
+        return view('blackjack.game.betting')->with('profile', $profile);
     }
     public function getProfile() {
         return $this->profileService->getProfile(Auth::id());

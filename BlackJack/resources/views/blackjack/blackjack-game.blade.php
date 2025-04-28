@@ -21,27 +21,27 @@
             </div>
             <div class="container flex justify-center my-9 flex-col gap-8">
                 <div class="container flex justify-center gap-30">
-                    <p class="text-white text-2xl hidden" id="userCardsValue2"></p>
+                    <p class="text-white text-2xl invisible" id="userCardsValue2"></p>
                     <p class="text-white text-2xl" id="userCardsValue"></p>
                 </div>
                 <div class="container flex justify-center gap-30">
-                    <div class="container hidden relative w-fit" id="userCardsImageContainer2">
+                    <div class="container invisible relative w-fit" id="userCardsImageContainer2">
                     </div>
                     <div class="container flex relative w-fit" id="userCardsImageContainer">
 
                     </div>
                 </div>
             </div>
-            <div class="container flex gap-6 justify-center">
-                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden" id="actionBtnSplit">Split</button>
-                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden"
+            {{-- <div class="container flex gap-6 justify-center">
+                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white invisible" id="actionBtnSplit">Split</button>
+                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white invisible"
                     id="actionBtnDubble">Dubble</button>
-                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden" id="actionBtnHit">Hit</button>
-                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white hidden" id="actionBtnStand">Stand</button>
-            </div>
+                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white invisible" id="actionBtnHit">Hit</button>
+                <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white invisible" id="actionBtnStand">Stand</button>
+            </div> --}}
             <div class="container flex justify-center flex-col">
                 <div class="container flex justify-center gap-30" id="userChipBetHeadContainer">
-                    <div class="container flex justify-center relative w-fit" id="userChipBetContainer">
+                    <div class="container flex justify-center relative w-fit min-h-[110px]" id="userChipBetContainer">
                     </div>
                 </div>
                 <div class="flex justify-center mb-3">
