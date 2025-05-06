@@ -34,6 +34,27 @@ async function updateCredits(credits) {
         console.error('credits not defind fetch updateCredits')
     }
 }
+async function startGameFetch(betObject) {    
+    if (betObject){
+        try {
+            const response = await fetch('/startGameData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(betObject)
+            });
+            if (response.ok){
+                window.location.href = '/startGame';
+            }
+        } catch (err) {
+            console.error(err   );
+        }
+    } else{
+        console.error('betObject not defind fetch startGame')
+    }
+}
 async function updateProfile(data) {
     try {
         const response = await fetch('/updateProfile', {
@@ -54,4 +75,4 @@ async function updateProfile(data) {
         console.error(err);
     }
 }
-export {getCredits,updateCredits,updateProfile};
+export {getCredits,updateCredits,updateProfile, startGameFetch};

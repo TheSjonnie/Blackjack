@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Services\BlackjackProfileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\View\View;
 use Symfony\Component\VarDumper\VarDumper;
 
 class BlackjackGameController extends Controller
 {
     protected $profileService;
+    private $betObject;
     public function __construct(BlackjackProfileService $profileService)
     {
         $this->profileService = $profileService;
@@ -28,5 +31,17 @@ class BlackjackGameController extends Controller
     }
     public function updateProfile(Request $request) {
         return $this->profileService->updateProfile($request,Auth::id());
+    }
+    public function startGame(Request $request): View{
+        $profile = $this->profileService->getProfile(Auth::id());
+        // return view('blackjack.game.playing')->with('profile', $profile);
+
+        return view('blackjack.game.playing')->with([
+            'profile' => $profile,
+            'betObject' => $this->betObject,
+        ]);
+    }
+    public function startGameData(Request $request): void {
+        $this->betObject = $request->betObject;
     }
 }

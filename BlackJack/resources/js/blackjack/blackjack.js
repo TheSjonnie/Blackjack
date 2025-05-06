@@ -1,7 +1,7 @@
-import { startGame } from "./startGame";
 import { User } from "./userClass";
 import { Dealer } from "./dealerClass";
-import { getCredits } from "./apiCalls";
+import { setEventListenersToChips } from "./pageUI";
+import { getCredits, startGameFetch } from "./apiCalls";
 let userClass;
 let dealerClass;
 async function setupGame() {
@@ -12,12 +12,12 @@ async function setupGame() {
     } catch (err) {
         console.error(err);
     }
-}
+} 
 function setEventlistenerToStartBtn() {
     document.getElementById("startGame").addEventListener(
         "click",
         () => {
-            startGame();
+            startGameFetch(userClass.getObjectBet());
         },
         { once: true }
     );
@@ -27,6 +27,7 @@ if (!window._blackjackInitialized) {
     document.addEventListener("DOMContentLoaded", async () => {
         await setupGame();
         setEventlistenerToStartBtn();
+        setEventListenersToChips();
     });
 }
 export { userClass, dealerClass, setEventlistenerToStartBtn };

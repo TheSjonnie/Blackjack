@@ -5,6 +5,8 @@ import { actionHit,actionStand,actionDubble,actionSplit, totalValueCheck } from 
 import { userClass, dealerClass,setEventlistenerToStartBtn } from "./blackjack";
 import { updateCredits } from './apiCalls';
 async function startGame() {
+    console.log(userClass.getObjectBet());
+    return;
     console.log("Funtion ==> startGame")
     if (userClass.getUserBet() == 0){
         setEventlistenerToStartBtn();

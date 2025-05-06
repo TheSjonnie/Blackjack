@@ -18,7 +18,7 @@
         <header>
             <x-navbar />
 </header>
-        <main>
+        <main class="flex items-center flex-col">
             {{$slot}}
         </main>
         <footer></footer>

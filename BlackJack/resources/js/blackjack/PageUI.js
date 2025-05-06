@@ -1,9 +1,6 @@
 import { userClass } from './blackjack.js';
 import { createElementFunction } from './helper.js';
 
-document.addEventListener("DOMContentLoaded", function () {
-    setEventListenersToChips();
-});
 function setEventListenersToChips() {
     const chipsContainer = document.getElementById("chipsBet");
     chipsContainer.addEventListener("click", function (event) {
@@ -26,11 +23,12 @@ function handleChipClick(value, imgPath) {
     }
     creditElement.innerHTML -= parseInt(value);
     userClass.saveUserBet(number);
-    betElement.innerHTML = number;
-    const parentElement = document.getElementById('userChipBetContainer');
     let top = Math.floor(Math.random() * 6)
     let left = Math.floor(Math.random() * 6) 
-    let rotate = Math.floor(Math.random() * 80) / 10
+    let rotate = Math.floor(Math.random() * 80) / 10;
+    (userClass.getObjectBet()) ? userClass.updateObjectBet(value, imgPath,left, top, rotate) : userClass.createObjectBet(value, imgPath);
+    betElement.innerHTML = number;
+    const parentElement = document.getElementById('userChipBetContainer');
     const alt = `Value ${value} Chip`;
     createElementFunction({
         type: "img",
@@ -81,4 +79,4 @@ function classListAddShow(htmlElementId) {
     }
 }
 
-export { setHtmlElementContent, classListAddHidden, classListAddShow };
+export { setHtmlElementContent, classListAddHidden, classListAddShow, setEventListenersToChips };
