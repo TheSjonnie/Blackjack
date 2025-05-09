@@ -1,8 +1,8 @@
 import { setHtmlElementContent } from "./pageUI";
 import { timeOut } from "./helper";
-import { userClass, dealerClass } from "./blackjack";
+import { userClass, dealerClass } from './StartGame';
 import { spiltSwitch } from "./midGame";
-import { updateProfile } from "./apiCalls";
+import { updateProfile } from "../apiCalls";
 async function gameEnd(Blackjack,deck){
     console.log("function ==> gameEnd" );
     if (userClass.splitCheck()){

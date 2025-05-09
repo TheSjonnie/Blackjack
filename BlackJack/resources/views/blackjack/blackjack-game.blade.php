@@ -32,13 +32,13 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="container flex gap-6 justify-center">
+            <div class="container flex gap-6 justify-center">
                 <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white invisible" id="actionBtnSplit">Split</button>
                 <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white invisible"
                     id="actionBtnDubble">Dubble</button>
                 <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white invisible" id="actionBtnHit">Hit</button>
                 <button class="bg-yellow-500 px-6 py-1 rounded-2xl text-white invisible" id="actionBtnStand">Stand</button>
-            </div> --}}
+            </div>
             <div class="container flex justify-center flex-col">
                 <div class="container flex justify-center gap-30" id="userChipBetHeadContainer">
                     <div class="container flex justify-center relative w-fit min-h-[110px]" id="userChipBetContainer">

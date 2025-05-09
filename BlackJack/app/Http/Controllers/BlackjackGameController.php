@@ -3,23 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Services\BlackjackProfileService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
-use Symfony\Component\VarDumper\VarDumper;
-
+use Illuminate\Validation\ValidationException;
 class BlackjackGameController extends Controller
 {
     protected $profileService;
-    private $betObject;
     public function __construct(BlackjackProfileService $profileService)
     {
         $this->profileService = $profileService;
     }
 
     public function index(Request $request) {
-        // dd($requst, 'hoi');
         $profile = $this->profileService->getProfile(Auth::id());
         return view('blackjack.game.betting')->with('profile', $profile);
     }
@@ -32,16 +31,43 @@ class BlackjackGameController extends Controller
     public function updateProfile(Request $request) {
         return $this->profileService->updateProfile($request,Auth::id());
     }
-    public function startGame(Request $request): View{
-        $profile = $this->profileService->getProfile(Auth::id());
-        // return view('blackjack.game.playing')->with('profile', $profile);
-
+    public function startGame(): View|RedirectResponse{
+        try {
+            $profile = $this->profileService->getProfile(Auth::id());
+            $betObject = session('betObject');
+            $totalBetValue = session('totalBetValue');
+        } catch (\Throwable $th) {
+            Log::error('Failed to start game: ' . $th->getMessage());
+            return redirect()->route('home')->with('error', 'There was a problem starting your game. Please try again.');    
+        }
         return view('blackjack.game.playing')->with([
             'profile' => $profile,
-            'betObject' => $this->betObject,
+            'betObject' => $betObject,
+            'totalBetValue' => $totalBetValue,
         ]);
     }
-    public function startGameData(Request $request): void {
-        $this->betObject = $request->betObject;
+    public function startGameData(Request $request): JsonResponse {
+        try {
+            $validated = $request->validate([
+                'betObject' => 'required',
+                'totalBetValue' => 'required'
+            ],[
+                'betObject.required' => 'The betObject is not found',
+                'totalBetValue.required' => 'The totalBetValue is not found'
+            ]);
+
+            session(['betObject' => $validated['betObject']]);
+            session(['totalBetValue' => $validated['totalBetValue']]);
+            
+            return response()->json(['succes' => true]);
+        }   catch (ValidationException $e) {
+            return response()->json([
+                'succes' => false,
+                'message' => 'Error: ' . $e->getMessage(),
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json(['succes' => false, 'message' => $e->getMessage()]);
+        }
+        
     }
 }

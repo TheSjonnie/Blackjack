@@ -1,8 +1,8 @@
 import { gameEnd } from './endGame';
 import { pickCard,getvalue,displayTotalValue,actionBtnSelection, timeOut } from './helper';
 import { setHtmlElementContent, classListAddShow } from './pageUI';
-import { userClass, dealerClass } from "./blackjack";
-import { updateCredits } from './apiCalls';
+import { userClass, dealerClass } from './StartGame';
+import { updateCredits } from '../apiCalls';
 async function actionHit(deck) {
     console.log("Funtion ==> actionhit");
     let userObject = userClass.getObject();

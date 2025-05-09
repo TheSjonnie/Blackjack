@@ -47,6 +47,6 @@
         </div>
 </div>
 @push('scripts')
-@vite(['resources/js/blackjack/blackjack.js'])
+@vite(['resources/js/blackjack/betting/setupGame.js'])
 @endpush
 </x-app-layout>

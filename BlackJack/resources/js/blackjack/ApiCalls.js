@@ -34,25 +34,30 @@ async function updateCredits(credits) {
         console.error('credits not defind fetch updateCredits')
     }
 }
-async function startGameFetch(betObject) {    
-    if (betObject){
+async function startGameFetch(betObject,totalBetValue) {    
+    console.log("🚀 ~ startGameFetch ~ betObject:", betObject)
+    if (betObject && totalBetValue){
         try {
             const response = await fetch('/startGameData', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify(betObject)
+                body: JSON.stringify({betObject: betObject, totalBetValue: totalBetValue})
             });
-            if (response.ok){
+            const results = await response.json();
+            if (results.succes){
                 window.location.href = '/startGame';
+            } else{
+                console.error(results)
             }
         } catch (err) {
-            console.error(err   );
+            console.error(err);
         }
     } else{
-        console.error('betObject not defind fetch startGame')
+        console.error('betObject or totalBetValue not defind fetch startGame')
     }
 }
 async function updateProfile(data) {

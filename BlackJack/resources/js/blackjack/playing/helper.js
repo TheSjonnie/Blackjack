@@ -1,6 +1,6 @@
-import cardsImageClasses from "../data/cardsImageClasses.json";
+import cardsImageClasses from "../../data/CardsImageClasses.json";
 import { setHtmlElementContent, classListAddShow } from "./pageUI";
-import { userClass, dealerClass } from "./blackjack";
+import { userClass, dealerClass } from './StartGame';
 function createElementFunction(object) {
 console.log("function ==> createElementFunction");
     let createdElement = document.createElement(object.type);
@@ -98,7 +98,7 @@ function displayTotalValue(htmlElementId, object) {
     let htmlDisplay;
     if (object.aCount > 0 && object.totalValue < 21 && object.totalValue != 11) {
         if (htmlElementId == "dealerCardsValue" && object.totalValue > 17){
-
+            htmlDisplay = object.totalValue;
         } else{
             htmlDisplay = `${object.totalValue - 10}/${object.totalValue}`;
         }
