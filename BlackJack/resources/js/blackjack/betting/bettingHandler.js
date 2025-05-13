@@ -46,8 +46,8 @@ function handleChipClick(value, imgPath) {
     creditElement.innerHTML -= parseInt(value);
     const parentElement = document.getElementById('userChipBetContainer');
 
-    let top = Math.floor(Math.random() * 6)
-    let left = Math.floor(Math.random() * 6) 
+    let top = Math.floor(Math.random() * 4)
+    let left = Math.floor(Math.random() * 4) 
     let rotate = Math.floor(Math.random() * 80) / 10;
     let position = (parentElement.childElementCount == 0) ? 'relative' : 'absolute';
     let alt = `Value ${value} Chip`;

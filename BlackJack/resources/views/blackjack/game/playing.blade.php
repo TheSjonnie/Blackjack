@@ -39,7 +39,7 @@
                 <div class="container w-2/3 flex flex-col gap-5">
                     <div class="w-fit flex flex-row gap-3 bg-gray-200 p-3 rounded-xl">
                         <p class="text-xl">Bet: </p>
-                        <p class="text-xl" id="bet">0</p>
+                        <p class="text-xl" id="bet">{{$totalBetValue}}</p>
                     </div>
                     <div class="w-fit flex flex-row gap-3 bg-gray-200 p-3 rounded-xl">
                         <p class="text-xl">Credits: </p>
@@ -50,15 +50,27 @@
             <div id="userChipBetHeadContainer" class="absolute left-1/2 -translate-x-1/2 flex justify-center gap-8">
                 <div class="container flex justify-center relative w-fit min-h-[110px]  items-end" id="userChipBetContainer">
                     @foreach ($betObject as $chip)
-                        <img src="{{$chip['src']}}" alt="value {{$chip['value']}} chip" class="{{$chip['position']}} {{$chip['left']}} {{$chip['rotate']}} {{$chip['top']}} ChipImgSize"> 
+                        <img src="{{$chip['src']}}" alt="value {{$chip['value']}} chip" class="{{$chip['position']}} left-{{$chip['left']}} rotate-{{$chip['rotate']}} top-{{$chip['top']}} ChipImgSize"> 
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
+    <template class="top-1 top-2 top-3 top-4  
+            left-1 left-2 left-3 left-4  
+            rotate-1.1 rotate-1.2 rotate-1.3 rotate-1.4 rotate-1.5 
+            rotate-1.6 rotate-1.7 rotate-1.8 rotate-1.9 rotate-2.0 
+            rotate-2.1 rotate-2.2 rotate-2.3 rotate-2.4 rotate-3.0 
+            rotate-3.1 rotate-3.2 rotate-3.3 rotate-4.0 rotate-4.1 
+            rotate-4.2 rotate-4.3 rotate-5.0 rotate-5.1 rotate-5.2 
+            rotate-5.3 rotate-6.0 rotate-6.1 rotate-6.2 rotate-7.0 
+            rotate-7.1 rotate-7.2 rotate-8.0">
+</template>
+
     @push('scripts')
         <script>
             window.totalBetValue = @json($totalBetValue);
+            console.log("🚀 ~ window.totalBetValue:", window.totalBetValue)
             window.credits = @json($profile->credits);
         </script>
         @vite(['resources/js/blackjack/playing/startGame.js'])

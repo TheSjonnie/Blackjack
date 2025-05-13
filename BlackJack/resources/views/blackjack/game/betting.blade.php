@@ -46,6 +46,16 @@
             </div>
         </div>
 </div>
+    <template class="top-1 top-2 top-3 top-4 
+            left-1 left-2 left-3 left-4  
+            rotate-1.1 rotate-1.2 rotate-1.3 rotate-1.4 rotate-1.5 
+            rotate-1.6 rotate-1.7 rotate-1.8 rotate-1.9 rotate-2.0 
+            rotate-2.1 rotate-2.2 rotate-2.3 rotate-2.4 rotate-3.0 
+            rotate-3.1 rotate-3.2 rotate-3.3 rotate-4.0 rotate-4.1 
+            rotate-4.2 rotate-4.3 rotate-5.0 rotate-5.1 rotate-5.2 
+            rotate-5.3 rotate-6.0 rotate-6.1 rotate-6.2 rotate-7.0 
+            rotate-7.1 rotate-7.2 rotate-8.0">
+</template>
 @push('scripts')
 @vite(['resources/js/blackjack/betting/setupGame.js'])
 @endpush
