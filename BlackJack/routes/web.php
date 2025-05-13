@@ -22,6 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/updateProfile',[BlackjackGameController::class, 'updateProfile']);
     Route::get('/startGame',[BlackjackGameController::class,'startGame']);
     Route::post('/startGameData',[BlackjackGameController::class,'startGameData']);
+    Route::get('/rules', function() {
+        return view('blackjack.rules-page');
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -7,8 +7,8 @@
                 <a href="" class="text-2xl text-yellow-500">Blackjack</a>
             </div>
             <div class="flex items-center">
-                <a class="hidden sm:block md:m-4 m-2 text-yellow-500" href="#">rules</a>
-                <a class="md:m-4 m-2 rounded-xl py-2 max-[400px]:py-1 px-5 max-[400px]:px-1 bg-yellow-500 text-xl" href="#">play now</a>
+                <a class="hidden sm:block md:m-4 m-2 text-yellow-500" href="/rules">rules</a>
+                <a class="md:m-4 m-2 rounded-xl py-2 max-[400px]:py-1 px-5 max-[400px]:px-1 bg-yellow-500 text-xl" href="/Blackjackpage">play now</a>
                 <a class="hidden sm:block md:m-4 m-2 text-yellow-500" href="#">LeaderBoard</a>
             </div>
             <div class="flex items-center gap-3.5">
