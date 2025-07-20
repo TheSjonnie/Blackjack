@@ -10,9 +10,9 @@
     4. vragen hoe ik test ga schrijven voor de frontend en backend
 # todo
     1.     gaan begrijpen en beter snappen hoe het werkt met die eventlisterens providers enzo veral rond die registered en dat beter documenteren
-    2. de A fixen rond om de Dealer
-    3. de bet fixen rond om de split funtions
-    4. de front end fixen overal
+    2. de front end fixen overal
+    3. de dingen van breeze testen en fixen vooral rond remenber me en rond password reset
+    4. testen met andere users
 # bugs
     2. tests schrijven voor de frontend en backend
   

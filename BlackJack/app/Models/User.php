@@ -18,9 +18,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'user_name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -50,5 +51,8 @@ class User extends Authenticatable
     }
     public function BlackjackPlays() {
         return $this->hasMany(BlackjackPlays::class);
+    }
+    public function isAdmin(): bool {
+        return $this->role === 'admin';
     }
 }

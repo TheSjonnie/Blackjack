@@ -72,7 +72,7 @@ async function updateProfile(data) {
         });
         const responseData = await response.text();
         if (responseData == 'succes') {
-            // window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
+            window.location.href = 'http://127.0.0.1:8000/Blackjackpage';
         } else{
             console.error(responseData);
         }
