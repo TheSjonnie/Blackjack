@@ -2,8 +2,8 @@
     <div class="flex flex-row gap-10">
         <div class="w-1/4 flex flex-col justify-between min-h-100">
             <div class="border-1 rounded-lg bg-white h-1/5">
-                <form action="{{ Route('admin.addCredits')}}" method="get">
-                    <button type="submit">
+                <form action="{{ Route('admin.addCredits')}}" method="get" class="h-full w-full">
+                    <button type="submit" class="h-full w-full cursor-pointer">
                         <h1>add credits</h1>
                     </button>
                 </form>
