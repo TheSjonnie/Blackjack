@@ -1,8 +1,8 @@
 <div class="">
     <input
         type="text"
-        x-model="$parent.input"
-        @input.debounce.300ms="$parent.fetch"
+        x-model="input"
+        @input.debounce.300ms="fetch"
         placeholder="Search..."
         class="border rounded-md py-2 px-3 w-full mb-4"
     >

@@ -1,11 +1,12 @@
-export function search(endpoint) {
+export function search(endpoint,allUsers) {
     return {
         input: "",
         items: [],
         endpoint: endpoint,
         fetch() {
             if (this.input.trim() === "") {
-                this.items = [];
+                console.log(allUsers)
+                this.items = allUsers;
                 return;
             }
 

@@ -1,5 +1,7 @@
-<template x-for="item in items">
-    <div class="">
-        <x-user-card userName="item.user_name"> </x-user-card>
-    </div>
-</template>
+<div class="flex flex-col gap-2.5">
+    <template x-for="item in items">
+        <div class="border-1 rounded-md p-2">
+            <h1>Username: <span x-text="item.user_name" ></span></h1>
+        </div>
+    </template>
+</div>
