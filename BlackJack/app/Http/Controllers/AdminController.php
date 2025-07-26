@@ -26,10 +26,8 @@ class AdminController extends Controller
         return view('admin.addCredits')->with('users',$users);
     }
     public function SearchUsernames(Request $request) : JsonResponse {
-        $query = $request->query('query');
-        $users = User::where('user_name', 'like', '%' . $query . '%')
-            ->select('id','user_name')
-            ->get();
+        $input = $request->query('input');
+        $users = $this->adminService->getUsersByUsername($input);
         return response()->json($users);
     }
 }

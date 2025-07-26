@@ -33,12 +33,14 @@
             <div class="border-1 rounded-lg bg-white min-h-fit">
                 <div class="m-3 flex gap-2 flex-col">
                     <h1 class="text-2xl text-yellow-600 ">All Users</h1>
-                    @foreach ($users as $user)
-                        <div class="">
-                            <x-user-card userName='{{$user->user_name}}'>
-                            </x-user-card>
-                        </div>
-                        @endforeach
+                <x-user-list-with-search :users="$users" />
+{{-- <div class="container">
+    @foreach ($users as $user)
+        {{ $user->user_name }}
+    @endforeach
+</div>
+ 
+{{ $users->links() }} --}}
                     </div>
             </div>
         </div>
