@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 class AdminService
 {
     public function getUsers() {
@@ -12,7 +14,7 @@ class AdminService
     public function getUsersByUsername($input) {
         $users = User::where('user_name', 'like', '%' . $input . '%')
             ->select('id','user_name')
-            ->get()->pagination(10);
-        return $users;
+            ->paginate(10);
+        return ($users);
     }
 }
