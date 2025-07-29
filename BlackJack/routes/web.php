@@ -30,8 +30,11 @@ Route::middleware('auth')->group(function () {
         return view('blackjack.rules-page');
     });
 });
-Route::middleware(['auth', isAdmin::class])->group(function () {
-    Route::get('/adminDashboard', [AdminController::class,'index'])->name("admin");
-    Route::get('/adminDashboard/addCredits',[AdminController::class,'addCreditsIndex'])->name("admin.addCredits");
+Route::middleware(['auth', isAdmin::class])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/', [AdminController::class,'index'])->name("index");
+        Route::get('/addCredits',[AdminController::class,'addCreditsIndex'])->name("addCredits");
 });
 require __DIR__.'/auth.php';

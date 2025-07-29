@@ -15,7 +15,7 @@
                 @if(auth()->check() && auth()->user()->isAdmin())
 
                                   <div class="">
-                    <a href="{{ route('admin')}}">Admin Dashboard</a>
+                    <a href="{{ route('admin.index')}}">Admin Dashboard</a>
                 </div>  
                 @endif
                             <div class="flex items-center gap-3.5">

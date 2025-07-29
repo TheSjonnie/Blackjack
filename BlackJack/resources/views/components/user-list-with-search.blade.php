@@ -3,7 +3,12 @@
     <x-searchbar />
     <x-user-list />
     <div class="flex justify-center mt-4 mb-1.5">
-        {{ $users->links() }}
+        <template x-if='pagination === ""'>
+            {{ ($users->links()) }}
+        </template>
+        <template x-if=' pagination != "" '>>
+            <div x-html="pagination"></div>
+        </template>
 
     </div>
 </div>

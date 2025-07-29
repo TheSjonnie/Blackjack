@@ -8,6 +8,8 @@ use GuzzleHttp\Psr7\Response;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -23,11 +25,17 @@ class AdminController extends Controller
 
     public function addCreditsIndex() : View {
         $users = $this->adminService->getUsers();
+        // dd($users);
         return view('admin.addCredits')->with('users',$users);
     }
-    public function SearchUsernames(Request $request) : JsonResponse {
+    public function SearchUsernames(Request $request) : HttpResponse {
         $input = $request->query('input');
-        $users = $this->adminService->getUsersByUsername($input);
-        return response()->json($users);
+        $Path = str_replace("/", ".", $request->query('Path',url()->previous()));
+        Log::info($Path);
+        $users = $this->adminService->getUsersByUsername($input,$Path);
+        return response([
+            'items' => $users->items(),
+            'pagination' => (string) $users->links(),
+        ]);
     }
 }
