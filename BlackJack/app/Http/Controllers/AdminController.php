@@ -30,8 +30,11 @@ class AdminController extends Controller
     }
     public function SearchUsernames(Request $request) : HttpResponse {
         $input = $request->query('input');
-        $Path = str_replace("/", ".", $request->query('Path',url()->previous()));
-        Log::info($Path);
+        // $Path = str_replace("/", ".", $request->query('Path',url()->previous()));
+        // $Path = app('router')->getRoutes()->match(
+        //     request()->create(url()->previous())
+        // )->getName();
+        // Log::info($Path);
         $users = $this->adminService->getUsersByUsername($input,$Path);
         return response([
             'items' => $users->items(),
