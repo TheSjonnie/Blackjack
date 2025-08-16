@@ -26,9 +26,9 @@ async function gameEnd(Blackjack,deck){
             let data = {
                 profileUpdates: {
                     credits: finalCredit,
-                    gamesWon: won1,
-                    gamesLost: lost1,
-                    gamesDraw: draw
+                    gamesWon: won1 + won2,
+                    gamesLost: lost1 + lost2,
+                    gamesDraw: draw + draw2,
                 }
             }
             await updateProfile(data);
@@ -53,35 +53,35 @@ async function gameEnd(Blackjack,deck){
 
 }
 function resultsValidation(Blackjack,userTotalValue, dealerTotalValue, newCredit){
-    let won = false
-    let lost = false
-    let draw = false
+    let won = 0
+    let lost = 0
+    let draw = 0
     let result;
     if(Blackjack){
         if (userTotalValue == 21){
             result = "Blackjack";
             newCredit += userClass.getUserBet() * 2.5;
-            won = true
+            won = 1
         } else if(dealerTotalValue == 21){
             result = "You lose";
-            lost = true
+            lost = 1
         }
     } else if(userTotalValue > 21){
         result = "you bust";
-        lost = true
+        lost = 1
     } else if (dealerTotalValue > 21){
         result = "dealer bust";
         newCredit += userClass.getUserBet() * 2; 
     }  else if (dealerTotalValue > userTotalValue){
         result = "you lost";
-        lost = true
+        lost = 1
     } else if (dealerTotalValue == userTotalValue){
         result = "Draw";
-        draw = true
+        draw = 1
         newCredit += userClass.getUserBet(); 
     } else{
         result = "you won";
-        won = true
+        won = 1
         newCredit += userClass.getUserBet() * 2; 
     }
     return {won,lost,draw,result,newCredit}
