@@ -2,7 +2,7 @@
     <div class="flex flex-row gap-10">
         <div class="w-1/4 flex flex-col justify-between min-h-100">
             <div class="border-1 rounded-lg bg-white h-1/5">
-                <form action="{{ Route('admin.addCredits')}}" method="get" class="h-full w-full">
+                <form action="{{ Route('admin.addCredits') }}" method="get" class="h-full w-full">
                     <button type="submit" class="h-full w-full cursor-pointer">
                         <h1>add credits</h1>
                     </button>
@@ -33,15 +33,8 @@
             <div class="border-1 rounded-lg bg-white min-h-fit">
                 <div class="m-3 flex gap-2 flex-col">
                     <h1 class="text-2xl text-yellow-600 ">All Users</h1>
-                <x-user-list-with-search :users="$users" />
-{{-- <div class="container">
-    @foreach ($users as $user)
-        {{ $user->user_name }}
-    @endforeach
-</div>
- 
-{{ $users->links() }} --}}
-                    </div>
+                    <livewire:userlist-with-search />
+                </div>
             </div>
         </div>
     </div>

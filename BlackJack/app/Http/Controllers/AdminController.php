@@ -18,9 +18,9 @@ class AdminController extends Controller
         $this->adminService = $adminService;
     }
     public function index() {
-        // $users = $this->adminService->getUsers();
-        // return view('admin.index')->with('users',$users);
-        return view('admin.index');
+        $users = $this->adminService->getUsers();
+        return view('admin.index')->with('users',$users);
+        // return view('admin.index');
     }
 
 
@@ -28,6 +28,9 @@ class AdminController extends Controller
         $users = $this->adminService->getUsers();
         // dd($users);
         return view('admin.addCredits')->with('users',$users);
+    }
+    public function addCredits(Request $request) : void {
+        
     }
     public function SearchUsernames(Request $request) : HttpResponse {
         $input = $request->query('input');
