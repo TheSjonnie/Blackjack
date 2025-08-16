@@ -18,8 +18,9 @@ class AdminController extends Controller
         $this->adminService = $adminService;
     }
     public function index() {
-        $users = $this->adminService->getUsers();
-        return view('admin.index')->with('users',$users);
+        // $users = $this->adminService->getUsers();
+        // return view('admin.index')->with('users',$users);
+        return view('admin.index');
     }
 
 
