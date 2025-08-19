@@ -83,7 +83,7 @@ async function actionSplit(deck){
     secondCards.classList.replace('rotate-355','rotate-345');
     document.getElementById('userCardsImageContainer2').appendChild(secondCards);
     let userObject = userClass.getObject();
-    console.log("🚀 ~ actionSplit ~ userObject:", userObject)
+    // console.log("🚀 ~ actionSplit ~ userObject:", userObject)
     let aCount = (userObject.aCount == 1) ? 1 : 0;
     let userObject1 = {
         aCount: aCount,
@@ -104,8 +104,9 @@ async function actionSplit(deck){
     setHtmlElementContent(['userCardsValue','userCardsValue2'], userObject1.totalValue);
     userClass.splitStart(userObject1,userObject2)
     await actionHit(deck);
-    classListAddShow('actionBtnHit')
-    classListAddShow('actionBtnStand')
+    // classListAddShow('actionBtnHit')
+    // classListAddShow('actionBtnStand')
+    actionBtnSelection()
 }
 async function dubbleBet(splitCheck){
     console.log("function ==> dubbleBet", );

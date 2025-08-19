@@ -21,7 +21,10 @@ console.log("function ==> createElementFunction");
 }
 async function pickCard(parentContainerName, deck) {
     console.log("function ==> pickCard");
-    let card = deck[Math.floor(Math.random() * 52)];
+    let randomNumber = Math.floor(Math.floor(Math.random() * (deck.length + 1)))
+    let card = deck[randomNumber];
+    console.log("🚀 ~ pickCard ~ card:", card)
+    deck.splice(randomNumber, 1)
     const parentElement = document.getElementById(parentContainerName);
     let dealerObject = dealerClass.getObject();
     let blankcard;
@@ -55,6 +58,7 @@ async function pickCard(parentContainerName, deck) {
 }
 function getvalue(card, aCount) {
     let cardValue = card.split("_")[1];
+    let cardStringValue = cardValue
     if (cardValue == "J" || cardValue == "Q" || cardValue == "K") {
         cardValue = 10;
     } else if (cardValue == "A") {
@@ -63,7 +67,7 @@ function getvalue(card, aCount) {
     } else {
         cardValue = parseInt(cardValue);
     }
-    return { cardValue, aCount };
+    return { cardValue, aCount,cardStringValue };
 }
 async function timeOut() {
     await new Promise((resolve) => setTimeout(resolve, 800));
@@ -72,10 +76,11 @@ async function timeOut() {
 function actionBtnSelection() {
     console.log("function ==> ", "actionBtnSelection");
     let userObject = userClass.getObject();
+    console.log("🚀 ~ actionBtnSelection ~ userObject:", userObject)
     let actionBtnDubbleShow = false;
     let actionBtnSplitShow = false;
     if (!userClass.splitCheck() && !userObject.valueCard3) {
-        if (userObject.valueCard1 === userObject.valueCard2) {
+        if (userObject.stringValueCard1 === userObject.stringValueCard2) {
             actionBtnSplitShow = true;
             if (
                 userObject.TotalValue === 9 ||

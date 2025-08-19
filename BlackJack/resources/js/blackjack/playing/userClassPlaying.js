@@ -6,7 +6,7 @@ export class UserPlaying {
         this.userCredits = credits;
         this.userBet = userBet;
     }
-    createObject(cardValue1, cardValue2, aCardsNumber1, aCardsNumber2) {
+    createObject(cardValue1, cardValue2, aCardsNumber1, aCardsNumber2,userCardStingValue1,userCardStingValue2) {
         return (this.userObject = {
             amouthCards: 2,
             totalValue: cardValue1 + cardValue2,
@@ -15,6 +15,8 @@ export class UserPlaying {
             bet: this.userBet,
             valueCard1: cardValue1,
             valueCard2: cardValue2,
+            stringValueCard1: userCardStingValue1,
+            stringValueCard2: userCardStingValue2,
         });
     }
     getUserBet(){
