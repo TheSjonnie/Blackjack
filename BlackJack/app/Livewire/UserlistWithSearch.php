@@ -18,6 +18,9 @@ class UserlistWithSearch extends Component
     {
         $this->resetPage();
     }
+    public function show($userId) {
+        $this->emit('showPopupFn',$userId);
+    }
     public function render()
     {
         $users = User::query()
