@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\BlackjackProfile;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-
 class AdminService
 {
     public function getUsers() {
@@ -19,9 +19,10 @@ class AdminService
         return ($users);
     }
     public function editCredits($credits, $userId) {
-        $user = User::with('UserProfile')->findOrFail($userId);
-        $user->UserProfile->credits = $credits;
-        dd(User::with('UserProfile')->findOrFail($userId));
+        // dd($credits);
+        BlackjackProfile::find($userId)
+            ->update(['credits' => $credits['credits']]);
+        // dd(BlackjackProfile::find($userId));
         redirect(Route('admin.addCredits'));
     }
 }

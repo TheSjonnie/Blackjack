@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="w-6/7 border-1 rounded-xl bg-yellow-500 mt-10 h-100 p-10">
+    <div class=" border-1 rounded-xl bg-yellow-500 p-4">
         {{$slot}}
     </div>
 </x-app-layout>

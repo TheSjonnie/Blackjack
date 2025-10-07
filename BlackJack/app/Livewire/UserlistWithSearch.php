@@ -13,7 +13,11 @@ class UserlistWithSearch extends Component
 
     public $searchInput = '';
     protected $queryString = ['searchInput'];
+    public $addCreditPage = false;
+    public function mount($addCreditPage = false) {
+        $this->addCreditPage = $addCreditPage;
 
+    }
     public function updatingSearchInput()
     {
         $this->resetPage();
@@ -33,6 +37,7 @@ class UserlistWithSearch extends Component
                 where('user_name', 'like', "%{$this->searchInput}%")
             )
             ->paginate(10);
+                    // dd($this->addCreditPage,$users);
         return view('livewire.userlist-with-search', [
             'users' => $users,
         ]);

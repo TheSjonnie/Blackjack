@@ -1,6 +1,3 @@
-{{-- <div x-data='search("{{ route('api.users.search') }}", @json($users),"user_name")' x-init="fetch();
-$watch('input', value => fetch())"> --}}
-
 <div>
     <div class="">
         <input type="text" wire:model.live="searchInput" placeholder="Search..."
@@ -12,16 +9,20 @@ $watch('input', value => fetch())"> --}}
                     <div class="">
                         <h1>Username: {{ $user->user_name }}</h1>
                     </div>
-                    <div class="flex ">
+                    <div class="flex gap-4">
                         <h1>Credits: {{$user->credits }}</h1>
-                       <button wire:click="$dispatch('showPopupFn', [{{ $user->id }}])">Edit credits</button>
+                        @if ($addCreditPage)
+                        <button wire:click="$dispatch('showPopupFn', [{{ $user->id }}])" class="border-1 rounded-lg px-2">Edit credits</button>
+                        @endif
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
     <div class="">
+        @if ($addCreditPage)
         <livewire:user-addcredits-popup />
+        @endif
     </div>
     <div class="flex justify-center mt-4 mb-1.5">
         {{ $users->links() }}

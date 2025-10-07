@@ -11,6 +11,7 @@ class UserAddcreditsPopup extends Component
     public $user;
     public $show = false;
     public $credits = 0;
+
     protected $listeners = ['showPopupFn' => 'getUser'];
 
     public function getUser($userId) {
@@ -20,8 +21,14 @@ class UserAddcreditsPopup extends Component
         $this->credits = $this->user->UserProfile->credits;
     }
     public function addCredits(AdminController $adminController) {
+        // dd( $this->user);
+$validated = $this->validate([
+    'credits' => 'required|numeric|max:9007199254740991'
+], messages: [
+    'credits.max' => 'The maximal number is 9007199254740991. Please enter a lower number',
+]);
 
-        $adminController->addCredits($this->credits, $this->user->user_id);
+        $adminController->addCredits($validated, $this->user->id);
     }
     public function render()
     {

@@ -8,9 +8,9 @@
                 <label class="block mb-2">Enter new amount of credits</label>
                 <input type="number" wire:model="credits"
                 class="w-full border rounded p-2 mb-4 bg-white" value="{{$user->userProfile->credits ?? ""}}">
-            
+                <div>@error('credits') {{ $message }} @enderror</div>
                 <div class="flex justify-end space-x-2">
-                <button wire:click="$set('showModal', false)"
+                <button wire:click="$set('show', false)"
                 class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
                 Cancel
             </button>

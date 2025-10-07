@@ -19,7 +19,7 @@
         <header>
             <x-navbar />
 </header>
-        <main class="flex items-center flex-col">
+        <main class="flex items-center flex-col mt-7">
             {{$slot}}
         </main>
         <footer></footer>

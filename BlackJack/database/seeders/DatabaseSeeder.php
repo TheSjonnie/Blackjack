@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         ]);
         event(new Registered($user));
        User::factory(100)->create()->each(function ($user) {
-    event(new Registered($user));
+        event(new Registered($user));
 });
 
     }
