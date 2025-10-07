@@ -18,4 +18,10 @@ class AdminService
         $users->withPath(route($Path));
         return ($users);
     }
+    public function editCredits($credits, $userId) {
+        $user = User::with('UserProfile')->findOrFail($userId);
+        $user->UserProfile->credits = $credits;
+        dd(User::with('UserProfile')->findOrFail($userId));
+        redirect(Route('admin.addCredits'));
+    }
 }

@@ -29,20 +29,20 @@ class AdminController extends Controller
         // dd($users);
         return view('admin.addCredits')->with('users',$users);
     }
-    public function addCredits(Request $request) : void {
-        
+    public function addCredits($newCredits, $userId) : void {
+        $this->adminService->editCredits($newCredits, $userId);
     }
-    public function SearchUsernames(Request $request) : HttpResponse {
-        $input = $request->query('input');
-        // $Path = str_replace("/", ".", $request->query('Path',url()->previous()));
-        // $Path = app('router')->getRoutes()->match(
-        //     request()->create(url()->previous())
-        // )->getName();
-        // Log::info($Path);
-        $users = $this->adminService->getUsersByUsername($input,$Path);
-        return response([
-            'items' => $users->items(),
-            'pagination' => (string) $users->links(),
-        ]);
-    }
+    // public function SearchUsernames(Request $request) : HttpResponse {
+    //     $input = $request->query('input');
+    //     // $Path = str_replace("/", ".", $request->query('Path',url()->previous()));
+    //     // $Path = app('router')->getRoutes()->match(
+    //     //     request()->create(url()->previous())
+    //     // )->getName();
+    //     // Log::info($Path);
+    //     $users = $this->adminService->getUsersByUsername($input,$Path);
+    //     return response([
+    //         'items' => $users->items(),
+    //         'pagination' => (string) $users->links(),
+    //     ]);
+    // }
 }

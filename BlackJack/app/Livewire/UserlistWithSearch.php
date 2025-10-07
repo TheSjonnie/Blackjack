@@ -24,7 +24,7 @@ class UserlistWithSearch extends Component
     public function render()
     {
         $users = User::query()
-            ->leftJoin('blackjack_profiles', 'users.id' , '=', 'blackjack_profiles.userId')
+            ->leftJoin('blackjack_profiles', 'users.id' , '=', 'blackjack_profiles.user_id')
             ->select('users.*', 'blackjack_profiles.credits')
             ->when(
                 $this->searchInput,

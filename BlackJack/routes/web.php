@@ -35,6 +35,7 @@ Route::middleware(['auth', isAdmin::class])
     ->name('admin.')
     ->group(function () {
         Route::get('/', [AdminController::class,'index'])->name("index");
-        Route::get('/addCredits',[AdminController::class,'addCreditsIndex'])->name("addCredits");
+        Route::get ('/addCredits',[AdminController::class,'addCreditsIndex'])->name("addCredits");
+        Route::post ('/addCredits',[AdminController::class,'addCredits'])->name("addCreditsSubmit");
 });
 require __DIR__.'/auth.php';

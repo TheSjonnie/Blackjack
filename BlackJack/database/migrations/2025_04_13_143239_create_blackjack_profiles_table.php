@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('blackjack_profiles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('userId');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('credits')->default(1000);
             $table->unsignedBigInteger('gamesPlayed')->default(0);
             $table->unsignedBigInteger('gamesWon')->default(0);

@@ -14,7 +14,7 @@ $watch('input', value => fetch())"> --}}
                     </div>
                     <div class="flex ">
                         <h1>Credits: {{$user->credits }}</h1>
-                       <button wire:click="$dispatch('showPopupFn', {{ $user->id }})">Edit credits</button>
+                       <button wire:click="$dispatch('showPopupFn', [{{ $user->id }}])">Edit credits</button>
                     </div>
                 </div>
             @endforeach

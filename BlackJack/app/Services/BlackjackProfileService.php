@@ -10,11 +10,11 @@ class BlackjackProfileService
     public function createBlackjackProfile(User $user): BlackjackProfile
     {
         return BlackjackProfile::create([
-            'userId' => $user->id,
+            'user_id' => $user->id,
         ]);
     }
     public function getProfile(int $userId) {
-        return BlackjackProfile::where('userId', $userId)->first();
+        return BlackjackProfile::where('user_id', $userId)->first();
     }
     public function updateCredits(int $newCredit, int $userId) {
         return BlackjackProfile::find($userId)
