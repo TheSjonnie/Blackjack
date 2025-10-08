@@ -23,7 +23,7 @@ A web-based Blackjack game built with Laravel, Livewire, and Tailwind CSS. The p
 ## Installation
 
 1. Clone the repository:
-   git clone https://github.com/userName/Blackjack.git 
+   git clone git@github.com:TheSjonnie/Blackjack.git
    # or your preferred method to clone
    cd blackjack
 
