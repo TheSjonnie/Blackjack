@@ -20,7 +20,7 @@
         </div>
         <div class="w-3/4 flex flex-col gap-7">
             <div class="flex flex-row justify-between h-2">
-                <div class="border-1 rounded-lg bg-white min-h-max min-w-3/10">
+                <div class="border-1 rounded-lg bg-white min-h-max min-w-3/10 py-1">
                     <h1>stats</h1>
                 </div>
                 <div class="border-1 rounded-lg bg-white min-h-max min-w-3/10">

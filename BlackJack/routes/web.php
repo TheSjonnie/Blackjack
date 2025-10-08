@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/startGame',[BlackjackGameController::class,'startGame']);
     Route::post('/startGameData',[BlackjackGameController::class,'startGameData']);
     Route::get('/rules', function() {
-        return view('blackjack.rules-page');
+        return view('index.rules-page');
     });
 });
 Route::middleware(['auth', isAdmin::class])

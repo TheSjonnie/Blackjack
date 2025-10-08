@@ -21,7 +21,6 @@ class UserAddcreditsPopup extends Component
         $this->credits = $this->user->UserProfile->credits;
     }
     public function addCredits(AdminController $adminController) {
-        // dd( $this->user);
 $validated = $this->validate([
     'credits' => 'required|numeric|max:9007199254740991'
 ], messages: [
