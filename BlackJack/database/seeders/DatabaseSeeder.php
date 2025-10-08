@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin'
         ]);
         event(new Registered($user));
-       User::factory(100)->create()->each(function ($user) {
+        User::factory(100)->create()->each(function ($user) {
         event(new Registered($user));
 });
 

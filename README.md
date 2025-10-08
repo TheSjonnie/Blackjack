@@ -1,22 +1,69 @@
-# Blackjack
+# blackjack
 
+## About Project
 
+A web-based Blackjack game built with Laravel, Livewire, and Tailwind CSS. The project includes user authentication, game logic, admin tools, and a dynamic frontend for an engaging casino experience.
 
+## Features
 
-# Vragen aan docent
-    1. Is het handig om in de BlackJack\resources\views\blackjack\blackjack-game.blade.php al die lege divs te hebben en met js in te laten vullen of kan ik dat beter met is van components doen of is daar een betere marnier voor of is dit oke
-    2. is het hoe ik het heb gedaan met de split voor de usercards een handige en of oke marnier of is het handiger en beter om het om een andere marnier te doen
-    3. vragen of met Event listerens Registered een goeie marnier is om de blackjack profiles aantemaken 
-    4. vragen hoe ik test ga schrijven voor de frontend en backend
-# todo
-    1.     gaan begrijpen en beter snappen hoe het werkt met die eventlisterens providers enzo veral rond die registered en dat beter documenteren
-    2. de front end fixen overal
-    3. de dingen van breeze testen en fixen vooral rond remenber me en rond password reset
-    4. testen met andere users
-    5. als ik al heb gesplit dan checken of ik nog een x kan splitten
-    6. checken bij het deck kleiner maken na elk kaart gepakt te hebben
-# bugs
-    2. tests schrijven voor de frontend en backend
-  
-# Ideas
-    1. een report knop aan het eind van een game waar je een ticket kan maken voor als er een bug was in de game en dan kan je vanuit een admin panel de game met de kaarten checken en als het klopt kan speler credits terug krijgen
+- Play Blackjack with interactive betting and game logic
+- User profiles with credits and game history
+- Authentication (login, registration, password reset)
+- Admin panel for managing users and credits
+- Livewire-powered search and admin tools
+- Responsive design with Tailwind CSS
+- Bug reporting and admin review/refund system
+
+## Requirements
+
+- PHP >= 8.1
+- Composer
+- Node.js & npm
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/blackjack.git
+   cd blackjack/BlackJack
+   ```
+2. Install PHP dependencies:
+   ```bash
+   composer install
+   ```
+3. Install JavaScript dependencies:
+   ```bash
+   npm install
+   ```
+4. Copy and configure environment file:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your database and mail settings
+   ```
+5. Generate application key:
+   ```bash
+   php artisan key:generate
+   ```
+6. Run migrations and seeders:
+   ```bash
+   php artisan migrate --seed
+   ```
+7. Start the development servers:
+   ```bash
+   npm run dev
+   php artisan serve
+   ```
+
+## Usage
+
+- Visit `http://127.0.0.1:8000` to access the game.
+- Register or log in to play.
+- Use the admin dashboard for user management and credit operations.
+
+## Contributing
+
+Pull requests and issues are welcome!  
+Please open an issue for bugs or feature requests.
+
+## Todos
+[todo file](todos.md)
