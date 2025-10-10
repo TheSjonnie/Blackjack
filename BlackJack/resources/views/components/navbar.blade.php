@@ -1,7 +1,7 @@
-<nav class="container min-w-screen flex justify-center bg-Homepage-navbar border-b-3 border-yellow-500 ">
-        <div class="container flex justify-between mx-5 text-white">
+<nav class="flex bg-Homepage-navbar border-b-3 border-yellow-500">
+        <div class="flex justify-between mx-5 text-white w-full">
             <div class="flex flex-row items-center">
-                <div class="container  w-20 h-auto">
+                <div class=" w-20 h-auto">
                     <img src="{{asset('image/WebsiteIcon.png')}}" alt="WebsiteIcon">
                 </div>
                 <a href="" class="text-2xl text-yellow-500">Blackjack</a>

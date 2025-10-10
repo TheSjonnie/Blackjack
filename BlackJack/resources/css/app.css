@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .bg-Homepage-navbar{
     background-color: #1c1302;
 }
