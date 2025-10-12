@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-home-layout>
     <section class="w-full max-w-3xl p-6 mt-10  text-white">
         <h1 class="text-3xl font-bold text-yellow-500 mb-4 text-center">Blackjack Rules</h1>
 
@@ -58,4 +58,4 @@
             </ul>
         </div>
     </section>
-</x-app-layout>
+</x-home-layout>

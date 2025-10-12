@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-blackjackGame-layouts>
     <div class="container mt-7">
         <div class="container flex justify-center mb-9 flex-col gap-8">
             <div class="container flex justify-center">
@@ -75,4 +75,4 @@
         </script>
         @vite(['resources/js/blackjack/playing/startGame.js'])
     @endpush
-</x-app-layout>
+    </x-blackjackGame-layouts>

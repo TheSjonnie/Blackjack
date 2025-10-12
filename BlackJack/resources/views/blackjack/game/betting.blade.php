@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-blackjackGame-layouts>
 <div class="container h-full">
         {{-- startGame --}}
         <div class="container flex justify-center my-6" id="startBtnContainer">
@@ -59,4 +59,4 @@
 @push('scripts')
 @vite(['resources/js/blackjack/betting/setupGame.js'])
 @endpush
-</x-app-layout>
+</x-blackjackGame-layouts>
