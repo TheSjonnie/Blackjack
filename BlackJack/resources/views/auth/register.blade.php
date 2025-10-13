@@ -1,7 +1,7 @@
-<x-guest-layout>
+<x-home-guest-layout>
     <div class="w-full flex justify-center">
     <div class="w-2/4 mt-40">
-    <form method="POST" action="{{ route('register') }}" class="shadow-2xl p-5 rounded-2xl">
+    <form method="POST" action="{{ route('register') }}" class="shadow-2xl p-5 rounded-2xl bg-white">
         @csrf
 
         <!-- Name -->
@@ -53,4 +53,4 @@
     </form>
     </div>
     </div>
-</x-guest-layout>
+</x-home-guest-layout>

@@ -1,4 +1,4 @@
-<x-home-layout>
+<x-home-layouts>
     <div class="relative w-full min-h-screen flex flex-col justify-center ">
         <img src="{{ asset('image/Backgrounds/homePageBackground.jpg') }}" alt=""
             class="absolute w-full h-full object-cover z-0" />
@@ -21,13 +21,13 @@
             </div>
             <div class="flex flex-col gap-10 items-center">
                 <div class="grid grid-flow-col md:grid-rows-1 grid-rows-2 gap-4">
-                    <a href="">
+                    <a href="/Blackjackpage">
                         <div
                             class="rounded-md bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 px-8 py-6 shadow-lg shadow-amber-500/50 transition-all duration-300 hover:scale-105 active:scale-95">
                             <h1 class="text-black">Start Blackjack</h1>
                         </div>
                     </a>
-                    <a href="">
+                    <a href="/rules">
                         <div
                             class="rounded-md bg-white hover:bg-amber-500/10 px-8 py-6 shadow-lg shadow-amber-500/50 transition-all duration-300 hover:scale-105 active:scale-95 border-1 border-amber-500 text-amber-500 hover:text-white">
                             <h1 class="">Spelregels</h1>
@@ -51,4 +51,4 @@
             </div>
         </div>
     </div>
-</x-home-layout>
+</x-home-layouts>
